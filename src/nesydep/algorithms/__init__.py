@@ -31,7 +31,14 @@ class MiningAlgorithm:
         raise NotImplementedError
 
     def _apply_override(self, key: str, value: Any) -> None:
-        # Convenience: ``BSFD(support=100)`` sets ``config.miner.support``.
+        # Stage selection by name: correlation="pearson" / "transformer" / "bn",
+        # sampler="random" / "stratified" / "representative".
+        if key == "correlation" and isinstance(value, str):
+            self.config.correlation = _correlation_config(value)
+            return
+        if key == "sampler" and isinstance(value, str):
+            self.config.sampler = _sampler_config(value)
+            return
         for section in ("miner", "sampler", "correlation", "global_"):
             sub = getattr(self.config, section, None)
             if sub is not None and hasattr(sub, key):
@@ -117,6 +124,39 @@ class SCFDM(MiningAlgorithm):
                 else CFDMinerConfig(),
             },
         )
+
+
+def _correlation_config(name: str) -> Any:
+    from nesydep.core.config import (
+        BNCorrelationConfig,
+        LightweightCorrelationConfig,
+        TransformerCorrelationConfig,
+    )
+
+    if name == "transformer":
+        return TransformerCorrelationConfig()
+    if name == "bn":
+        return BNCorrelationConfig()
+    if name in ("lightweight", "pearson", "pca", "lasso"):
+        method = "pearson" if name == "lightweight" else name
+        return LightweightCorrelationConfig(method=method)
+    raise ValueError(f"unknown correlation extractor {name!r}")
+
+
+def _sampler_config(name: str) -> Any:
+    from nesydep.core.config import (
+        RandomSampleConfig,
+        RepresentativeSampleConfig,
+        StratifiedSampleConfig,
+    )
+
+    if name == "random":
+        return RandomSampleConfig()
+    if name == "stratified":
+        return StratifiedSampleConfig()
+    if name == "representative":
+        return RepresentativeSampleConfig()
+    raise ValueError(f"unknown sampler {name!r}")
 
 
 def _baseline(algo_name: str, miner_name: str, miner_config: Any) -> type[MiningAlgorithm]:

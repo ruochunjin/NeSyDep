@@ -19,25 +19,13 @@ from nesydep.core.pipeline import Pipeline
 from nesydep.core.registry import ALGORITHMS, MINERS
 from nesydep.core.results import MiningResult
 
-# Importing the built-in stage/algorithm modules registers them.
+# Importing the built-in stage/algorithm subpackages registers their members.
 from nesydep import algorithms as _algorithms  # noqa: F401
 from nesydep.algorithms import BSFD, SCFDM
-from nesydep import sampling as _sampling  # noqa: F401
-from nesydep.sampling.basic import RandomSampler, StratifiedSampler  # noqa: F401
 from nesydep import correlation as _correlation  # noqa: F401
-from nesydep.correlation.lightweight import LightweightCorrelation  # noqa: F401
-from nesydep.correlation.transformer import TransformerCorrelation  # noqa: F401
-from nesydep import partition as _partition  # noqa: F401
-from nesydep.partition.vertical import VerticalPartitioner  # noqa: F401
 from nesydep import miners as _miners  # noqa: F401
-from nesydep.miners.pyref import NaiveFDMiner  # noqa: F401
-from nesydep.miners.native import (  # noqa: F401
-    CTaneNative,
-    DFDNative,
-    PFMinerNative,
-    SCFDMNative,
-    TaneNative,
-)
+from nesydep import partition as _partition  # noqa: F401
+from nesydep import sampling as _sampling  # noqa: F401
 
 __version__ = "0.1.0"
 

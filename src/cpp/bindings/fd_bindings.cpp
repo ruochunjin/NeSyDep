@@ -77,13 +77,15 @@ FDPairs run_dfd(const std::vector<std::string>& columns,
     d.extraction();
 
     FDPairs out;
-    out.reserve(d.FD.size());
-    for (auto& fd : d.FD) {
+    const auto& fds = d.getFD();
+    const auto& attrs = d.getAttributes();
+    out.reserve(fds.size());
+    for (auto& fd : fds) {
         // DFD stores 1-based column indices; the last entry is the RHS.
         if (max_lhs > 0 && static_cast<int>(fd.size()) - 1 > max_lhs) continue;
         std::vector<std::string> lhs;
-        for (size_t j = 0; j + 1 < fd.size(); ++j) lhs.push_back(d.attributes[fd[j] - 1]);
-        out.emplace_back(std::move(lhs), d.attributes[fd.back() - 1]);
+        for (size_t j = 0; j + 1 < fd.size(); ++j) lhs.push_back(attrs[fd[j] - 1]);
+        out.emplace_back(std::move(lhs), attrs[fd.back() - 1]);
     }
     return out;
 }

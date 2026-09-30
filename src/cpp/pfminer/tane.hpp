@@ -18,19 +18,19 @@ typedef long long Colbit;
 using namespace std;
 
 //计算输入参数的2次幂
-inline int encode(int item) {
-  return std::pow(2, item);
+inline long long encode(int item) {
+  return 1LL << item;
 }
 
-inline int encode(std::vector<int>& items) {
-  int code = 0;
+inline long long encode(std::vector<int>& items) {
+  long long code = 0;
   for (int i = 0; i < items.size(); ++i) {
-    code += std::pow(2, items[i]);
+    code |= (1LL << items[i]);
   }
   return code;
 }
 
-inline std::vector<int> decode_to_vector(int code) {
+inline std::vector<int> decode_to_vector(long long code) {
   std::vector<int> items;
   for (int i = 0; code != 0; ++i) {
     if (code % 2 == 1) {
@@ -41,7 +41,7 @@ inline std::vector<int> decode_to_vector(int code) {
   return items;
 }
 
-inline std::unordered_set<int> decode_to_set(int code) {
+inline std::unordered_set<int> decode_to_set(long long code) {
   std::unordered_set<int> items;
   for (int i = 0; code != 0; ++i) {
     if (code % 2 == 1) {
@@ -52,41 +52,41 @@ inline std::unordered_set<int> decode_to_set(int code) {
   return items;
 }
 
-inline bool contains(int code, int item) {
+inline bool contains(long long code, int item) {
   int s = encode(item);
   return (s & code);
 }
 
-inline int exclude_set(int code1, int code2) {
+inline long long exclude_set(long long code1, long long code2) {
   return (code1 ^ code2);
 }
 
-inline int exclude_item(int code, int item) {
+inline long long exclude_item(long long code, int item) {
   if (contains(code, item)) {
     return (code - encode(item));
   }
   return code;
 }
 
-inline int merge_set(int code1, int code2) {
+inline long long merge_set(long long code1, long long code2) {
   return (code1 | code2);
 }
 
-inline int merge_item(int code, int item) {
+inline long long merge_item(long long code, int item) {
   if (contains(code, item)) {
     return code;
   }
-  return (code + std::pow(2, item));
+  return (code | (1LL << item));
 }
 
-inline int intersect(int code1, int code2) {
+inline long long intersect(long long code1, long long code2) {
   return (code1 & code2);
 }
 
 // how many bits are different
-inline int difference(int code1, int code2) {
+inline int difference(long long code1, long long code2) {
   int ret = 0;
-  int code = code1 ^ code2;
+  long long code = code1 ^ code2;
   while (code) {
     code = code & (code - 1);
     ++ret;
@@ -101,13 +101,13 @@ public:
 
   std::vector<std::vector<int>> data;
   std::vector<int> T;
-  std::unordered_map<int, int> C;
-  std::vector<int> L;
-  std::unordered_map<int, Partition> set_part_map;   //整数到partiton的映射
-  std::vector<std::pair<int, int>> FD;
+  std::unordered_map<long long, int> C;
+  std::vector<long long> L;
+  std::unordered_map<long long, Partition> set_part_map;   //整数到partiton的映射
+  std::vector<std::pair<long long, int>> FD;
 
-  std::unordered_map<int, std::pair<int, int>> parents;
-  std::unordered_map<int, int> eX;
+  std::unordered_map<long long, std::pair<long long, long long>> parents;
+  std::unordered_map<long long, int> eX;
 
   std::vector<std::string> attributes;
   Partition counter;
@@ -115,7 +115,7 @@ public:
 
   int nrow;
   int ncol;
-  int full_set;
+  long long full_set;
   // Mining thresholds (paper defaults; were #defines in the prototype).
   double support_threshold = 0.10;
   double confidence_threshold = 0.90;
@@ -161,27 +161,14 @@ public:
   }
 
   inline void read_data(std::string& path) {
-    auto r = Reader(path);
+    Reader r;
     r.read_data(path);
-    data = std::move(r.data);
- 
-    nrow = r.nrow;
-    ncol = r.ncol;
-    cout<<"nrow:"<<nrow<<" ncol:"<<ncol<<"\n";
-    //cout<<"supp:"<<SUPPORT<<"\n";
-    T.resize(nrow);    //resize成nrow
-    attributes = std::move(r.attributes);
-
-    //将full_set表示成ncol个连续的1,表示所有属性都在集合里面
-    full_set = 0;
-    for (int i = 0; i < ncol; ++i) {
-      full_set = (full_set << 1) + 1;
-    }
-    set_part_map.reserve(15000);
+    cout<<"nrow:"<<r.nrow<<" ncol:"<<r.ncol<<"\n";
+    set_data(r);
   }
 
   inline void generate_next_level() {
-    std::vector<int> new_level;
+    std::vector<long long> new_level;
     new_level.reserve(L.size() * L.size() / 2);
     std::unordered_set<int> visited;
     //在同一层两两遍历，不考虑自己和自己
@@ -192,7 +179,7 @@ public:
         auto s2 = L[j];
         //如果两个集合有两个不同的属性，则合并？
         if (difference(s1, s2) == 2) {
-          int merged = merge_set(s1, s2);
+          long long merged = merge_set(s1, s2);
           if (visited.find(merged) == visited.end()) {
             visited.insert(merged);
             new_level.push_back(merged);
@@ -261,7 +248,7 @@ public:
     }
   }
 
-  std::vector<std::pair<int, int>>& getFD() {
+  std::vector<std::pair<long long, int>>& getFD() {
 		return FD;
 	}
 
@@ -384,7 +371,7 @@ public:
         criterions.second = numerator/ nrow;
         return criterions;
     }
-  inline bool isValid(int bigX, int A) {
+  inline bool isValid(long long bigX, int A) {
     double t_error;
     double num;
     double conf;
@@ -431,7 +418,7 @@ public:
     }
   }
 
-  inline void compute_partition_on_demand(int X) {
+  inline void compute_partition_on_demand(long long X) {
     if (set_part_map.find(X) != set_part_map.end()) {
       return;
     }

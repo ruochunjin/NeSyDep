@@ -170,6 +170,10 @@ public:
         return FD;
     }
 
+    const std::vector<std::string>& getAttributes() const {
+        return attributes;
+    }
+
 private:
     std::vector<std::vector<int>> data;
     int nrow;

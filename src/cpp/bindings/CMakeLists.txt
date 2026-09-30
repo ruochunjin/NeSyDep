@@ -9,6 +9,11 @@ pybind11_add_module(_core
 )
 target_link_libraries(_core PRIVATE nesydep_fd nesydep_scfdm)
 
+if(MINGW)
+    # Self-contained extension: users should not need the MinGW runtime on PATH.
+    target_link_options(_core PRIVATE -static -static-libgcc -static-libstdc++)
+endif()
+
 if(NESYDEP_ENABLE_OPENMP AND OpenMP_CXX_FOUND)
     target_link_libraries(_core PRIVATE OpenMP::OpenMP_CXX)
     target_link_libraries(nesydep_scfdm PUBLIC OpenMP::OpenMP_CXX)
