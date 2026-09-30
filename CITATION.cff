@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use NeSyDep, please cite the papers below."
+title: "NeSyDep: fast neural-symbolic discovery of data dependencies"
+type: software
+license: MIT
+preferred-citation:
+  type: article
+  title: "Fast Discovery of Functional Dependencies via Bayesian Network Learning"
+  venue: "ICDE 2026"
+references:
+  - type: article
+    title: "Fast Discovery of Conditional Functional Dependencies via Transformer-Guided Relation Partitioning"

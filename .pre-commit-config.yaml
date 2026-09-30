@@ -1,0 +1,27 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.10
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-yaml
+      - id: check-toml
+      # The prototype repos taught us a lesson: conda-exported UTF-16 files
+      # slip in easily and break pip. Reject any UTF-16 file outright.
+      - id: check-added-large-files
+        args: [--maxkb=2000]
+  - repo: local
+    hooks:
+      - id: no-utf16
+        name: reject UTF-16 encoded files
+        entry: python -c "import pathlib,sys;bad=[f for f in sys.argv[1:] if pathlib.Path(f).read_bytes()[:2] in (b'\\xff\\xfe',b'\\xfe\\xff')];print('UTF-16 files:',bad) if bad else None;sys.exit(1 if bad else 0)"
+        language: system
+        types: [text]

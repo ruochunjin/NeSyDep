@@ -1,0 +1,105 @@
+[build-system]
+requires = ["scikit-build-core >=0.10", "pybind11 >=2.12"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "nesydep"
+version = "0.1.0"
+description = "NeSyDep: fast neural-symbolic discovery of data dependencies (FDs, CFDs, and more)"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+    { name = "NeSyDep Authors" },
+]
+keywords = ["functional dependencies", "CFD", "data profiling", "data quality", "data dependencies"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Database",
+]
+# Core: kept minimal. Heavy deps live in extras below.
+dependencies = [
+    "pandas >=1.5",
+    "numpy >=1.24",
+    "pydantic >=2.5",
+    "typer >=0.9",
+]
+
+[project.optional-dependencies]
+bn = ["pgmpy >=0.1.24", "networkx >=3.0", "joblib >=1.3"]
+transformer = ["torch >=2.0", "sentence-transformers >=2.2"]
+lsh = ["datasketch >=1.6"]
+all = [
+    "pgmpy >=0.1.24", "networkx >=3.0", "joblib >=1.3",
+    "torch >=2.0", "sentence-transformers >=2.2",
+    "datasketch >=1.6",
+]
+dev = [
+    "pytest >=7.4",
+    "pytest-cov",
+    "ruff >=0.4",
+    "mypy >=1.8",
+    "pre-commit",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+]
+
+[project.scripts]
+nesydep = "nesydep.cli:app"
+
+[project.entry-points."nesydep.miners"]
+# Third-party algorithm plugins register here, e.g.:
+# myalgo = "my_package.algorithms:MyAlgorithm"
+
+[project.urls]
+Homepage = "https://github.com/Y-Staring/NeSyDep"
+Documentation = "https://y-staring.github.io/NeSyDep/"
+Repository = "https://github.com/Y-Staring/NeSyDep"
+
+[tool.scikit-build]
+minimum-version = "build-system.requires"
+build-dir = "build/{wheel_tag}"
+cmake.minimum-version = "3.18"
+# The C++ extension is optional at source-build time: if CMake or a compiler is
+# unavailable, set NESYDEP_SKIP_CPP=1 to install the pure-Python subset.
+wheel.packages = ["src/nesydep"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "slow: large-dataset tests, excluded from default CI",
+    "gpu: requires a CUDA device",
+    "requires_torch: skipped when torch is not installed",
+    "requires_bn: skipped when pgmpy is not installed",
+    "requires_cpp: skipped when the native _core extension is unavailable",
+]
+addopts = "-m 'not slow and not gpu'"
+
+[tool.ruff]
+target-version = "py310"
+src = ["src"]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "PLC", "PLE"]
+ignore = ["E501"]  # line length handled by formatter
+
+[tool.mypy]
+python_version = "3.10"
+mypy_path = "src"
+strict = true
+# Strict typing is enforced on the stable core only; algorithm adapters are gradual.
+files = ["src/nesydep/core", "src/nesydep/io"]
+
+[[tool.mypy.overrides]]
+module = ["nesydep._core.*"]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["src/nesydep"]

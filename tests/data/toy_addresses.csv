@@ -1,0 +1,13 @@
+id,zip,city,state,gender,age_group
+1,10001,New York,NY,F,20-29
+2,10001,New York,NY,M,30-39
+3,90001,Los Angeles,CA,F,20-29
+4,90001,Los Angeles,CA,M,40-49
+5,60601,Chicago,IL,F,30-39
+6,60601,Chicago,IL,M,20-29
+7,10001,New York,NY,F,40-49
+8,90001,Los Angeles,CA,F,30-39
+9,60601,Chicago,IL,M,40-49
+10,10001,New York,NY,M,20-29
+11,90001,Los Angeles,CA,M,30-39
+12,60601,Chicago,IL,F,40-49

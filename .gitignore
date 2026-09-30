@@ -1,0 +1,40 @@
+# Byte-compiled / build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+*.whl
+
+# C++ / CMake
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+*.obj
+*.o
+*.so
+*.pyd
+*.lib
+
+# Environments
+.venv/
+venv/
+
+# Tooling
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+site/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Data & experiment outputs (never commit large data)
+*.pkl
+data/raw/
+results/
