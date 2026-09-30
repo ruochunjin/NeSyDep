@@ -94,7 +94,10 @@ ignore = [
 ]
 
 [tool.mypy]
-python_version = "3.10"
+# 3.12, not our 3.10 floor: numpy 2.x stubs use `type` statements and mypy
+# reports stub *syntax* errors even with follow_imports=skip. Python-3.10
+# source compatibility is enforced by ruff's target-version instead.
+python_version = "3.12"
 mypy_path = "src"
 strict = true
 # Strict typing is enforced on the stable core only; algorithm adapters are gradual.
