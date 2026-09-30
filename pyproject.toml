@@ -105,8 +105,10 @@ module = ["nesydep._core.*", "pandas.*", "pyarrow.*", "numpy.*", "torch.*", "pgm
           "sklearn.*", "datasketch.*", "networkx.*", "typer.*"]
 ignore_missing_imports = true
 # numpy's own stubs use 3.12 `type` statements; our target is 3.10, so never
-# parse third-party stubs — treat them as Any.
+# parse third-party stubs — treat them as Any. (A syntax error inside a
+# stub is reported even with follow_imports=skip, hence disable_error_code.)
 follow_imports = "skip"
+disable_error_code = ["syntax"]
 
 # Strict checking applies to core+io. Other subpackages are gradual — they are
 # pulled into analysis via nesydep/__init__'s registration imports, so
