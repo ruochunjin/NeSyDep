@@ -28,24 +28,47 @@ _SCORE_ALIASES = {
 
 
 def _learn_markov_blanket(args: tuple[pd.DataFrame, str, str, list, int]) -> list[str]:
-    """One BN structure-learning job: Markov blanket of ``node``."""
-    data, node, score, black_list, max_iter = args
-    from pgmpy.estimators import HillClimbSearch
+    """One BN structure-learning job: Markov blanket of ``node``.
 
-    est = HillClimbSearch(data=data)
+    Supports both pgmpy API generations: the causal-discovery sklearn-style
+    API (>= 1.0: ``HillClimbSearch(...).fit(X)`` + ``causal_graph_``) and the
+    legacy estimators API (``HillClimbSearch(data).estimate(...)``).
+    """
+    data, node, score, black_list, max_iter = args
     last_err: Exception | None = None
     for candidate in _SCORE_ALIASES.get(score, (score,)):
         try:
-            model = est.estimate(
-                scoring_method=candidate,
-                max_indegree=None,
-                max_iter=int(1e4),
-                black_list=black_list,
-                show_progress=False,
-            )
-            blanket = list(model.get_markov_blanket(node))
-            return sorted(blanket)
-        except (TypeError, ValueError) as e:  # unknown scoring method name
+            try:
+                # pgmpy >= 1.0
+                from pgmpy.causal_discovery import (
+                    ExpertKnowledge,
+                    HillClimbSearch,
+                )
+
+                est = HillClimbSearch(
+                    scoring_method=candidate,
+                    max_indegree=None,
+                    max_iter=max_iter,
+                    expert_knowledge=ExpertKnowledge(forbidden_edges=black_list),
+                    return_type="dag",
+                    show_progress=False,
+                )
+                est.fit(data)
+                model = est.causal_graph_
+            except ImportError:
+                # legacy pgmpy (< 1.0)
+                from pgmpy.estimators import HillClimbSearch
+
+                est = HillClimbSearch(data=data)
+                model = est.estimate(
+                    scoring_method=candidate,
+                    max_indegree=None,
+                    max_iter=max_iter,
+                    black_list=black_list,
+                    show_progress=False,
+                )
+            return sorted(model.get_markov_blanket(node))
+        except (TypeError, ValueError, KeyError) as e:  # unknown scoring name etc.
             last_err = e
             continue
     raise ValueError(
