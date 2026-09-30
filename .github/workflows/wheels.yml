@@ -46,6 +46,8 @@ jobs:
         shell: bash
         run: |
           pip install --find-links wheelhouse nesydep pytest
+          # The wheel must contain a loadable native extension.
+          python -c "from nesydep import _core; print('native kernel:', _core.__file__)"
           python -m pytest tests/regression -q
 
   upload_pypi:

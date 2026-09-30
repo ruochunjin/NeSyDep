@@ -7,7 +7,6 @@ within-family strategy agreement, CFD semantic verification). See
 """
 
 import json
-import sys
 from pathlib import Path
 
 import pandas as pd
@@ -17,7 +16,6 @@ _core = pytest.importorskip("nesydep._core")
 pytestmark = pytest.mark.requires_cpp
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "src"))
 GOLDEN = Path(__file__).resolve().parent / "golden"
 DATA = ROOT / "tests" / "data"
 

@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "nesydep"
-version = "0.1.1"
+version = "0.1.2"
 description = "NeSyDep: fast neural-symbolic discovery of data dependencies (FDs, CFDs, and more)"
 readme = "README.md"
 license = { file = "LICENSE" }

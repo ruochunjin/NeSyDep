@@ -27,7 +27,7 @@ from nesydep.core.pipeline import Pipeline
 from nesydep.core.registry import ALGORITHMS
 from nesydep.core.results import MiningResult
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 __all__ = [
     "BSFD",

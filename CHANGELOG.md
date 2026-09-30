@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.2 (2026-10-01)
+
+- Fixed wheel-test workflow: test module no longer shadows the installed
+  wheel with the source tree; the wheels CI now asserts the native extension
+  loads before running the golden regression.
+
 ## v0.1.1 (2026-09-30)
 
 - C++17 portability fix (std::ptr_fun removed in libc++/MSVC) — wheels now

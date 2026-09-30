@@ -29,7 +29,7 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "src"))
+sys.path.append(str(ROOT / "src"))  # prefer an installed package when present
 sys.path.insert(0, str(ROOT / "tests" / "data"))
 
 from toy_ground_truth import ALL_MINIMAL_FDS  # noqa: E402
