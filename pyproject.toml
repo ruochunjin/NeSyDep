@@ -101,8 +101,17 @@ strict = true
 files = ["src/nesydep/core", "src/nesydep/io"]
 
 [[tool.mypy.overrides]]
-module = ["nesydep._core.*", "pandas.*", "pyarrow.*", "numpy.*"]
+module = ["nesydep._core.*", "pandas.*", "pyarrow.*", "numpy.*", "torch.*", "pgmpy.*",
+          "sklearn.*", "datasketch.*", "networkx.*", "typer.*"]
 ignore_missing_imports = true
+
+# Strict checking applies to core+io. Other subpackages are gradual — they are
+# pulled into analysis via nesydep/__init__'s registration imports, so
+# explicitly relax them instead of letting mypy fail on untyped adapters.
+[[tool.mypy.overrides]]
+module = ["nesydep", "nesydep.algorithms.*", "nesydep.correlation.*", "nesydep.miners.*",
+          "nesydep.sampling.*", "nesydep.partition.*", "nesydep.evaluation.*", "nesydep.cli"]
+ignore_errors = true
 
 [tool.coverage.run]
 source = ["src/nesydep"]
