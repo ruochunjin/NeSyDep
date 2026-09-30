@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.1.1 (2026-09-30)
+
+- C++17 portability fix (std::ptr_fun removed in libc++/MSVC) — wheels now
+  build on all three platforms (v0.1.0's tag predated the fix).
+- CI fully green: ruff + mypy (pinned, scoped to core/io) + 3 OS × 4 Python
+  versions.
+
 ## v0.1.0 (2026-09-30)
 
 First public milestone (MVP).
