@@ -26,6 +26,7 @@ from nesydep import sampling as _sampling  # noqa: F401
 from nesydep.sampling.basic import RandomSampler, StratifiedSampler  # noqa: F401
 from nesydep import correlation as _correlation  # noqa: F401
 from nesydep.correlation.lightweight import LightweightCorrelation  # noqa: F401
+from nesydep.correlation.transformer import TransformerCorrelation  # noqa: F401
 from nesydep import partition as _partition  # noqa: F401
 from nesydep.partition.vertical import VerticalPartitioner  # noqa: F401
 from nesydep import miners as _miners  # noqa: F401

@@ -1,0 +1,24 @@
+site_name: NeSyDep
+site_description: Fast neural-symbolic discovery of data dependencies (FD/CFD)
+repo_url: https://github.com/Y-Staring/NeSyDep
+theme:
+  name: material
+  palette:
+    primary: indigo
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Concepts: pipeline.md
+  - Plugins: plugins.md
+  - API reference: api.md
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences

@@ -1,8 +1,8 @@
 """Wrappers around the native C++ mining kernels (``nesydep._core``).
 
 The extension is built from ``src/cpp`` via scikit-build-core. When it is not
-available (no compiler on the machine, or ``NESYDEP_SKIP_CPP=1``), importing
-this module still works; instantiating a native miner raises a clear error.
+available (no compiler on the machine), importing this module still works;
+instantiating a native miner raises a clear error at mining time.
 
 Sub-table-level parallelism lives here in Python (``ProcessPoolExecutor``),
 replacing the prototypes' MPI layer. OpenMP inside the kernels is configured
@@ -37,25 +37,29 @@ def _frame_payload(st: SubTable) -> tuple[list[str], list[list[str]]]:
 
 
 def _run_parallel(
-    func_name: str,
+    call: "_NativeCall",
     subtables: list[SubTable],
-    config_dict: dict[str, Any],
     n_jobs: int,
-) -> list[dict]:
-    core = _core()
-    func = getattr(core, func_name)
-    payloads = [_frame_payload(st) for st in subtables]
-    if n_jobs <= 1 or len(payloads) <= 1:
-        results = [func(cols, rows, config_dict) for cols, rows in payloads]
-    else:
-        with ProcessPoolExecutor(max_workers=n_jobs) as pool:
-            results = list(pool.map(_call_native, [(func_name, c, r, config_dict) for c, r in payloads]))
-    return [dep for batch in results for dep in batch]
+) -> list:
+    if n_jobs <= 1 or len(subtables) <= 1:
+        return [d for st in subtables for d in call(*_frame_payload(st))]
+    with ProcessPoolExecutor(max_workers=n_jobs) as pool:
+        results = list(pool.map(call.for_payload, [_frame_payload(st) for st in subtables]))
+    return [d for batch in results for d in batch]
 
 
-def _call_native(args: tuple[str, list[str], list[list[str]], dict]) -> list[dict]:
-    func_name, cols, rows, config = args
-    return getattr(_core(), func_name)(cols, rows, config)
+class _NativeCall:
+    """Picklable callable: apply a native kernel to one (columns, rows) payload."""
+
+    def __init__(self, func_name: str, params: dict[str, Any]) -> None:
+        self.func_name = func_name
+        self.params = params
+
+    def __call__(self, columns: list[str], rows: list[list[str]]) -> list:
+        return getattr(_core(), self.func_name)(columns, rows, **self.params)
+
+    def for_payload(self, payload: tuple[list[str], list[list[str]]]) -> list:
+        return self(*payload)
 
 
 def _n_jobs(config: Any) -> int:
@@ -63,18 +67,27 @@ def _n_jobs(config: Any) -> int:
 
 
 class _NativeFDMinerBase:
+    """FD kernels return ``[(lhs_columns, rhs_column), ...]``."""
+
     func_name = ""
 
     def mine(self, subtables: list[SubTable], config: FDMinerConfig | None = None) -> list[FD]:
         cfg = config or FDMinerConfig()
-        cfg_dict = cfg.model_dump()
-        raw = _run_parallel(self.func_name, subtables, cfg_dict, _n_jobs(cfg))
-        return [FD(lhs=tuple(d["lhs"]), rhs=d["rhs"]) for d in raw]
+        call = _NativeCall(
+            self.func_name,
+            {
+                "support": cfg.support,
+                "confidence": cfg.confidence,
+                "max_lhs": cfg.max_lhs,
+            },
+        )
+        raw = _run_parallel(call, subtables, _n_jobs(cfg))
+        return [FD(lhs=tuple(lhs), rhs=rhs) for lhs, rhs in raw]
 
 
 @MINERS.decorator("pfminer")
 class PFMinerNative(_NativeFDMinerBase):
-    """BSFD's parallel FD kernel (native)."""
+    """BSFD's parallel FD kernel (native; per-sub-table TANE inside the framework)."""
 
     func_name = "pfminer_mine"
 
@@ -101,15 +114,25 @@ class SCFDMNative:
         self, subtables: list[SubTable], config: CFDMinerConfig | None = None
     ) -> list[Dependency]:
         cfg = config or CFDMinerConfig()
-        raw = _run_parallel("cfd_mine", subtables, cfg.model_dump(), _n_jobs(cfg))
+        call = _NativeCall(
+            "cfd_mine",
+            {
+                "support": cfg.support,
+                "confidence": cfg.confidence,
+                "max_lhs": cfg.max_lhs,
+                "strategy": cfg.strategy,
+                "constant_only": cfg.constant_only,
+            },
+        )
+        raw = _run_parallel(call, subtables, _n_jobs(cfg))
         return [
             CFD(
-                lhs=tuple(d["lhs"]),
-                rhs=d["rhs"],
-                lhs_pattern=tuple(d["lhs_pattern"]),
-                rhs_pattern=d["rhs_pattern"],
+                lhs=tuple(lhs),
+                rhs=rhs,
+                lhs_pattern=tuple(pattern),
+                rhs_pattern=rhs_pattern,
             )
-            for d in raw
+            for lhs, rhs, pattern, rhs_pattern in raw
         ]
 
 
