@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: "3.12"
       # Pin lint tooling so CI results do not drift with new releases.
-      - run: pip install "ruff==0.14.*" "mypy==1.18.*"
+      - run: pip install "ruff==0.14.*" "mypy==1.18.*" pydantic pandas
       - run: ruff check src tests
       - run: ruff format --check src tests
       # Strict mypy on the stable core only (algorithms/ adapters are gradual).
