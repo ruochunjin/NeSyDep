@@ -1,0 +1,6 @@
+[city] -> state
+[city] -> zip
+[state] -> city
+[state] -> zip
+[zip] -> city
+[zip] -> state

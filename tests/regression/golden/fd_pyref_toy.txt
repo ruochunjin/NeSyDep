@@ -1,0 +1,14 @@
+[age_group, city, gender] -> id
+[age_group, gender, state] -> id
+[age_group, gender, zip] -> id
+[city] -> state
+[city] -> zip
+[id] -> age_group
+[id] -> city
+[id] -> gender
+[id] -> state
+[id] -> zip
+[state] -> city
+[state] -> zip
+[zip] -> city
+[zip] -> state

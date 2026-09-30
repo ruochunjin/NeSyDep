@@ -1,0 +1,392 @@
+[age] -> enroll in edu inst last wk
+[detailed household and family stat] -> detailed household summary in household
+[age, tax filer stat] -> marital status
+[detailed household summary in household, marital status] -> detailed household and family stat
+[detailed household summary in household, tax filer stat] -> detailed household and family stat
+[detailed industry recode] -> class of worker
+[detailed occupation recode] -> class of worker
+[detailed occupation recode] -> detailed industry recode
+[detailed industry recode, num persons worked for employer] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> num persons worked for employer
+[detailed industry recode, num persons worked for employer] -> weeks worked in year
+[detailed occupation recode, weeks worked in year] -> num persons worked for employer
+[detailed occupation recode, num persons worked for employer] -> weeks worked in year
+[detailed industry recode] -> class of worker
+[detailed occupation recode] -> class of worker
+[major industry code] -> class of worker
+[detailed occupation recode] -> detailed industry recode
+[major industry code] -> detailed industry recode
+[detailed industry recode] -> major industry code
+[detailed industry recode] -> own business or self employed
+[detailed occupation recode] -> major industry code
+[detailed occupation recode] -> own business or self employed
+[class of worker, num persons worked for employer] -> own business or self employed
+[detailed household and family stat, major industry code] -> own business or self employed
+[detailed industry recode, num persons worked for employer] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> num persons worked for employer
+[detailed industry recode, num persons worked for employer] -> weeks worked in year
+[major industry code, num persons worked for employer] -> detailed occupation recode
+[detailed occupation recode, weeks worked in year] -> num persons worked for employer
+[detailed occupation recode, num persons worked for employer] -> weeks worked in year
+[major industry code, marital status] -> own business or self employed
+[major industry code, num persons worked for employer] -> own business or self employed
+[major industry code, weeks worked in year] -> num persons worked for employer
+[major industry code, num persons worked for employer] -> weeks worked in year
+[major industry code, weeks worked in year] -> own business or self employed
+[num persons worked for employer, weeks worked in year] -> own business or self employed
+[detailed household and family stat, major industry code, weeks worked in year] -> detailed occupation recode
+[major industry code, marital status, weeks worked in year] -> detailed occupation recode
+[class of worker, detailed household and family stat, marital status, num persons worked for employer] -> weeks worked in year
+[class of worker, detailed household and family stat, marital status, weeks worked in year] -> own business or self employed
+[detailed industry recode] -> class of worker
+[detailed occupation recode] -> class of worker
+[major industry code] -> class of worker
+[detailed occupation recode] -> detailed industry recode
+[major industry code] -> detailed industry recode
+[detailed industry recode] -> major industry code
+[detailed industry recode] -> wage per hour
+[detailed occupation recode] -> major industry code
+[detailed occupation recode] -> wage per hour
+[major industry code] -> wage per hour
+[class of worker, num persons worked for employer] -> wage per hour
+[detailed household and family stat, num persons worked for employer] -> wage per hour
+[detailed industry recode, num persons worked for employer] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> num persons worked for employer
+[detailed industry recode, num persons worked for employer] -> weeks worked in year
+[major industry code, num persons worked for employer] -> detailed occupation recode
+[detailed occupation recode, weeks worked in year] -> num persons worked for employer
+[detailed occupation recode, num persons worked for employer] -> weeks worked in year
+[major industry code, weeks worked in year] -> num persons worked for employer
+[major industry code, num persons worked for employer] -> weeks worked in year
+[marital status, num persons worked for employer] -> wage per hour
+[num persons worked for employer, weeks worked in year] -> wage per hour
+[detailed household and family stat, major industry code, weeks worked in year] -> detailed occupation recode
+[major industry code, marital status, weeks worked in year] -> detailed occupation recode
+[class of worker, detailed household and family stat, marital status, num persons worked for employer] -> weeks worked in year
+[class of worker, detailed household and family stat, marital status, weeks worked in year] -> wage per hour
+[detailed occupation recode] -> detailed industry recode
+[detailed industry recode] -> member of a labor union
+[detailed industry recode] -> wage per hour
+[detailed occupation recode] -> member of a labor union
+[detailed occupation recode] -> wage per hour
+[member of a labor union] -> wage per hour
+[age] -> enroll in edu inst last wk
+[detailed household and family stat] -> detailed household summary in household
+[age] -> veterans benefits
+[detailed household and family stat] -> detailed household summary in household
+[detailed occupation recode] -> detailed industry recode
+[age, tax filer stat] -> marital status
+[detailed household summary in household, marital status] -> detailed household and family stat
+[detailed household summary in household, tax filer stat] -> detailed household and family stat
+[detailed industry recode, num persons worked for employer] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> num persons worked for employer
+[detailed industry recode, num persons worked for employer] -> weeks worked in year
+[detailed occupation recode, weeks worked in year] -> num persons worked for employer
+[detailed occupation recode, num persons worked for employer] -> weeks worked in year
+[age, detailed household summary in household, detailed industry recode] -> detailed household and family stat
+[age, detailed household summary in household, detailed occupation recode] -> detailed household and family stat
+[age, detailed household and family stat, detailed industry recode] -> detailed occupation recode
+[age, detailed household and family stat, detailed industry recode] -> marital status
+[age, detailed household and family stat, detailed occupation recode] -> marital status
+[age, detailed household and family stat, num persons worked for employer] -> marital status
+[age, detailed household and family stat, num persons worked for employer] -> tax filer stat
+[age, detailed household and family stat, num persons worked for employer] -> weeks worked in year
+[age, detailed household summary in household, detailed industry recode] -> detailed occupation recode
+[age, detailed household summary in household, detailed industry recode] -> marital status
+[age, detailed household summary in household, detailed occupation recode] -> marital status
+[age, detailed household summary in household, num persons worked for employer] -> weeks worked in year
+[age, detailed industry recode, num persons worked for employer] -> marital status
+[age, detailed industry recode, tax filer stat] -> weeks worked in year
+[age, detailed occupation recode, num persons worked for employer] -> marital status
+[age, detailed occupation recode, tax filer stat] -> num persons worked for employer
+[age, detailed occupation recode, num persons worked for employer] -> tax filer stat
+[age, detailed occupation recode, tax filer stat] -> weeks worked in year
+[age, marital status, num persons worked for employer] -> tax filer stat
+[age, marital status, weeks worked in year] -> tax filer stat
+[detailed household and family stat, detailed industry recode, tax filer stat] -> detailed occupation recode
+[detailed household and family stat, detailed industry recode, tax filer stat] -> marital status
+[detailed household and family stat, detailed occupation recode, tax filer stat] -> marital status
+[detailed household and family stat, num persons worked for employer, tax filer stat] -> marital status
+[detailed household and family stat, tax filer stat, weeks worked in year] -> marital status
+[detailed household summary in household, detailed industry recode, tax filer stat] -> marital status
+[detailed household summary in household, detailed occupation recode, tax filer stat] -> marital status
+[age, detailed household and family stat, detailed industry recode, weeks worked in year] -> tax filer stat
+[age, detailed household and family stat, detailed occupation recode, weeks worked in year] -> tax filer stat
+[age, detailed household summary in household, detailed industry recode, tax filer stat] -> num persons worked for employer
+[age, detailed household summary in household, detailed industry recode, num persons worked for employer] -> tax filer stat
+[age, detailed household summary in household, detailed industry recode, weeks worked in year] -> tax filer stat
+[age, detailed household summary in household, detailed occupation recode, weeks worked in year] -> tax filer stat
+[detailed household and family stat, detailed occupation recode, tax filer stat, veterans benefits] -> weeks worked in year
+[detailed household summary in household, detailed occupation recode, tax filer stat, veterans benefits] -> weeks worked in year
+[detailed occupation recode] -> detailed industry recode
+[major industry code] -> detailed industry recode
+[detailed industry recode] -> major industry code
+[detailed occupation recode] -> major industry code
+[country of birth father] -> citizenship
+[country of birth mother] -> citizenship
+[country of birth father, hispanic Origin] -> country of birth mother
+[detailed household and family stat] -> detailed household summary in household
+[member of a labor union] -> wage per hour
+[migration code-change in msa] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-change in msa
+[migration code-change in reg] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-change in reg
+[migration code-move within reg] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-move within reg
+[migration prev res in sunbelt] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration prev res in sunbelt
+[live in this house 1 year ago] -> year
+[migration code-change in reg] -> migration code-change in msa
+[migration code-change in msa] -> migration code-change in reg
+[migration code-move within reg] -> migration code-change in msa
+[migration code-change in msa] -> migration code-move within reg
+[migration prev res in sunbelt] -> migration code-change in msa
+[migration code-change in msa] -> migration prev res in sunbelt
+[migration code-change in msa] -> year
+[migration code-move within reg] -> migration code-change in reg
+[migration code-change in reg] -> migration code-move within reg
+[migration prev res in sunbelt] -> migration code-change in reg
+[migration code-change in reg] -> migration prev res in sunbelt
+[migration code-change in reg] -> year
+[migration prev res in sunbelt] -> migration code-move within reg
+[migration code-move within reg] -> migration prev res in sunbelt
+[migration code-move within reg] -> year
+[migration prev res in sunbelt] -> year
+[age] -> veterans benefits
+[detailed household and family stat] -> detailed household summary in household
+[age, tax filer stat] -> marital status
+[detailed household summary in household, marital status] -> detailed household and family stat
+[detailed household summary in household, tax filer stat] -> detailed household and family stat
+[age, detailed household and family stat, num persons worked for employer] -> marital status
+[age, detailed household and family stat, num persons worked for employer] -> tax filer stat
+[age, detailed household and family stat, num persons worked for employer] -> weeks worked in year
+[age, detailed household summary in household, num persons worked for employer] -> weeks worked in year
+[age, marital status, num persons worked for employer] -> tax filer stat
+[age, marital status, weeks worked in year] -> tax filer stat
+[detailed household and family stat, num persons worked for employer, tax filer stat] -> marital status
+[detailed household and family stat, tax filer stat, weeks worked in year] -> marital status
+[state of previous residence] -> region of previous residence
+[region of previous residence] -> state of previous residence
+[migration code-change in reg] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-change in reg
+[migration code-move within reg] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-move within reg
+[live in this house 1 year ago] -> region of previous residence
+[live in this house 1 year ago] -> state of previous residence
+[live in this house 1 year ago] -> year
+[migration code-move within reg] -> migration code-change in reg
+[migration code-change in reg] -> migration code-move within reg
+[migration code-change in reg] -> region of previous residence
+[migration code-change in reg] -> state of previous residence
+[migration code-change in reg] -> year
+[migration code-move within reg] -> region of previous residence
+[migration code-move within reg] -> state of previous residence
+[migration code-move within reg] -> year
+[state of previous residence] -> region of previous residence
+[region of previous residence] -> state of previous residence
+[region of previous residence, year] -> live in this house 1 year ago
+[state of previous residence, year] -> live in this house 1 year ago
+[region of previous residence, year] -> migration code-change in reg
+[state of previous residence, year] -> migration code-change in reg
+[region of previous residence, year] -> migration code-move within reg
+[state of previous residence, year] -> migration code-move within reg
+[age] -> veterans benefits
+[detailed household and family stat] -> detailed household summary in household
+[age, tax filer stat] -> marital status
+[detailed household summary in household, marital status] -> detailed household and family stat
+[detailed household summary in household, tax filer stat] -> detailed household and family stat
+[detailed industry recode, weeks worked in year] -> num persons worked for employer
+[detailed industry recode, num persons worked for employer] -> weeks worked in year
+[age, detailed household summary in household, detailed industry recode] -> detailed household and family stat
+[age, detailed household and family stat, detailed industry recode] -> marital status
+[age, detailed household and family stat, num persons worked for employer] -> marital status
+[age, detailed household and family stat, num persons worked for employer] -> tax filer stat
+[age, detailed household and family stat, num persons worked for employer] -> weeks worked in year
+[age, detailed household summary in household, detailed industry recode] -> marital status
+[age, detailed household summary in household, num persons worked for employer] -> weeks worked in year
+[age, detailed industry recode, num persons worked for employer] -> marital status
+[age, detailed industry recode, tax filer stat] -> weeks worked in year
+[age, marital status, num persons worked for employer] -> tax filer stat
+[age, marital status, weeks worked in year] -> tax filer stat
+[detailed household and family stat, detailed industry recode, tax filer stat] -> marital status
+[detailed household and family stat, num persons worked for employer, tax filer stat] -> marital status
+[detailed household and family stat, tax filer stat, weeks worked in year] -> marital status
+[detailed household summary in household, detailed industry recode, tax filer stat] -> marital status
+[age, detailed household and family stat, detailed industry recode, weeks worked in year] -> tax filer stat
+[age, detailed household summary in household, detailed industry recode, tax filer stat] -> num persons worked for employer
+[age, detailed household summary in household, detailed industry recode, num persons worked for employer] -> tax filer stat
+[age, detailed household summary in household, detailed industry recode, weeks worked in year] -> tax filer stat
+[detailed household and family stat, detailed industry recode, num persons worked for employer, sex] -> marital status
+[detailed household and family stat, detailed industry recode, sex, weeks worked in year] -> marital status
+[detailed household and family stat, sex, tax filer stat, veterans benefits] -> marital status
+[detailed household summary in household, num persons worked for employer, sex, tax filer stat, weeks worked in year] -> marital status
+[age] -> enroll in edu inst last wk
+[age] -> veterans benefits
+[detailed household and family stat] -> detailed household summary in household
+[age, tax filer stat] -> marital status
+[detailed household summary in household, marital status] -> detailed household and family stat
+[detailed household summary in household, tax filer stat] -> detailed household and family stat
+[detailed household and family stat, veterans benefits] -> enroll in edu inst last wk
+[detailed household summary in household, veterans benefits] -> enroll in edu inst last wk
+[marital status, tax filer stat, veterans benefits] -> enroll in edu inst last wk
+[detailed household and family stat, sex, tax filer stat, veterans benefits] -> marital status
+[enroll in edu inst last wk, family members under 18, marital status, tax filer stat] -> veterans benefits
+[detailed household and family stat, enroll in edu inst last wk, marital status, sex, tax filer stat] -> veterans benefits
+[migration code-change in msa] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-change in msa
+[migration code-change in reg] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-change in reg
+[migration code-move within reg] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-move within reg
+[migration prev res in sunbelt] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration prev res in sunbelt
+[live in this house 1 year ago] -> year
+[migration code-change in reg] -> migration code-change in msa
+[migration code-change in msa] -> migration code-change in reg
+[migration code-move within reg] -> migration code-change in msa
+[migration code-change in msa] -> migration code-move within reg
+[migration prev res in sunbelt] -> migration code-change in msa
+[migration code-change in msa] -> migration prev res in sunbelt
+[migration code-change in msa] -> year
+[migration code-move within reg] -> migration code-change in reg
+[migration code-change in reg] -> migration code-move within reg
+[migration prev res in sunbelt] -> migration code-change in reg
+[migration code-change in reg] -> migration prev res in sunbelt
+[migration code-change in reg] -> year
+[migration prev res in sunbelt] -> migration code-move within reg
+[migration code-move within reg] -> migration prev res in sunbelt
+[migration code-move within reg] -> year
+[migration prev res in sunbelt] -> year
+[migration code-change in msa] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-change in msa
+[migration code-change in reg] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-change in reg
+[migration code-move within reg] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration code-move within reg
+[migration prev res in sunbelt] -> live in this house 1 year ago
+[live in this house 1 year ago] -> migration prev res in sunbelt
+[live in this house 1 year ago] -> state of previous residence
+[live in this house 1 year ago] -> year
+[migration code-change in reg] -> migration code-change in msa
+[migration code-change in msa] -> migration code-change in reg
+[migration code-move within reg] -> migration code-change in msa
+[migration code-change in msa] -> migration code-move within reg
+[migration prev res in sunbelt] -> migration code-change in msa
+[migration code-change in msa] -> migration prev res in sunbelt
+[migration code-change in msa] -> state of previous residence
+[migration code-change in msa] -> year
+[migration code-move within reg] -> migration code-change in reg
+[migration code-change in reg] -> migration code-move within reg
+[migration prev res in sunbelt] -> migration code-change in reg
+[migration code-change in reg] -> migration prev res in sunbelt
+[migration code-change in reg] -> state of previous residence
+[migration code-change in reg] -> year
+[migration prev res in sunbelt] -> migration code-move within reg
+[migration code-move within reg] -> migration prev res in sunbelt
+[migration code-move within reg] -> state of previous residence
+[migration code-move within reg] -> year
+[migration prev res in sunbelt] -> state of previous residence
+[migration prev res in sunbelt] -> year
+[state of previous residence, year] -> live in this house 1 year ago
+[state of previous residence, year] -> migration code-change in msa
+[state of previous residence, year] -> migration code-change in reg
+[state of previous residence, year] -> migration code-move within reg
+[state of previous residence, year] -> migration prev res in sunbelt
+[detailed industry recode] -> class of worker
+[detailed occupation recode] -> class of worker
+[detailed occupation recode] -> detailed industry recode
+[detailed industry recode] -> own business or self employed
+[detailed occupation recode] -> own business or self employed
+[class of worker, num persons worked for employer] -> own business or self employed
+[detailed industry recode, num persons worked for employer] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> num persons worked for employer
+[detailed industry recode, num persons worked for employer] -> weeks worked in year
+[detailed occupation recode, weeks worked in year] -> num persons worked for employer
+[detailed occupation recode, num persons worked for employer] -> weeks worked in year
+[num persons worked for employer, weeks worked in year] -> own business or self employed
+[class of worker, detailed household and family stat, tax filer stat] -> marital status
+[class of worker, num persons worked for employer, tax filer stat] -> weeks worked in year
+[detailed household and family stat, detailed industry recode, tax filer stat] -> detailed occupation recode
+[detailed household and family stat, detailed industry recode, tax filer stat] -> marital status
+[detailed household and family stat, detailed occupation recode, tax filer stat] -> marital status
+[detailed household and family stat, num persons worked for employer, tax filer stat] -> marital status
+[detailed household and family stat, tax filer stat, weeks worked in year] -> marital status
+[class of worker, detailed household and family stat, marital status, num persons worked for employer] -> weeks worked in year
+[class of worker, detailed household and family stat, marital status, weeks worked in year] -> own business or self employed
+[detailed household and family stat, detailed occupation recode, tax filer stat, veterans benefits] -> weeks worked in year
+[country of birth father] -> citizenship
+[country of birth mother] -> citizenship
+[country of birth self] -> citizenship
+[citizenship] -> country of birth self
+[country of birth father] -> country of birth self
+[country of birth mother] -> country of birth self
+[country of birth father, hispanic Origin] -> country of birth mother
+[country of birth father] -> citizenship
+[country of birth mother] -> citizenship
+[country of birth self] -> citizenship
+[citizenship] -> country of birth self
+[country of birth father] -> country of birth self
+[country of birth mother] -> country of birth self
+[detailed industry recode] -> own business or self employed
+[detailed industry recode, weeks worked in year] -> num persons worked for employer
+[detailed industry recode, num persons worked for employer] -> weeks worked in year
+[num persons worked for employer, weeks worked in year] -> own business or self employed
+[detailed household and family stat] -> detailed household summary in household
+[detailed occupation recode] -> detailed industry recode
+[detailed household summary in household, marital status] -> detailed household and family stat
+[detailed household summary in household, tax filer stat] -> detailed household and family stat
+[detailed industry recode, num persons worked for employer] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> detailed occupation recode
+[detailed industry recode, weeks worked in year] -> num persons worked for employer
+[detailed industry recode, num persons worked for employer] -> weeks worked in year
+[detailed occupation recode, weeks worked in year] -> num persons worked for employer
+[detailed occupation recode, num persons worked for employer] -> weeks worked in year
+[detailed household and family stat, detailed industry recode, full or part time employment stat] -> detailed occupation recode
+[detailed household and family stat, detailed industry recode, tax filer stat] -> detailed occupation recode
+[detailed household and family stat, detailed industry recode, full or part time employment stat] -> marital status
+[detailed household and family stat, detailed industry recode, tax filer stat] -> marital status
+[detailed household and family stat, detailed occupation recode, full or part time employment stat] -> marital status
+[detailed household and family stat, detailed occupation recode, tax filer stat] -> marital status
+[detailed household and family stat, full or part time employment stat, tax filer stat] -> marital status
+[detailed household and family stat, full or part time employment stat, num persons worked for employer] -> weeks worked in year
+[detailed household and family stat, num persons worked for employer, tax filer stat] -> marital status
+[detailed household and family stat, tax filer stat, weeks worked in year] -> marital status
+[detailed household summary in household, detailed industry recode, full or part time employment stat] -> detailed occupation recode
+[detailed household summary in household, detailed industry recode, tax filer stat] -> marital status
+[detailed household summary in household, detailed occupation recode, tax filer stat] -> marital status
+[detailed industry recode, full or part time employment stat, marital status] -> detailed occupation recode
+[detailed industry recode, full or part time employment stat, tax filer stat] -> detailed occupation recode
+[full or part time employment stat, num persons worked for employer, tax filer stat] -> weeks worked in year
+[detailed household summary in household, detailed industry recode, full or part time employment stat, num persons worked for employer] -> detailed household and family stat
+[detailed household summary in household, detailed occupation recode, full or part time employment stat, num persons worked for employer] -> detailed household and family stat
+[detailed household and family stat, detailed industry recode, full or part time employment stat, tax filer stat] -> num persons worked for employer
+[detailed household and family stat, detailed industry recode, full or part time employment stat, tax filer stat] -> weeks worked in year
+[detailed household and family stat, detailed occupation recode, full or part time employment stat, tax filer stat] -> num persons worked for employer
+[detailed household and family stat, detailed occupation recode, full or part time employment stat, tax filer stat] -> weeks worked in year
+[detailed household and family stat, detailed occupation recode, full or part time employment stat, veterans benefits] -> weeks worked in year
+[detailed household and family stat, detailed occupation recode, tax filer stat, veterans benefits] -> weeks worked in year
+[detailed household summary in household, detailed industry recode, full or part time employment stat, tax filer stat] -> num persons worked for employer
+[detailed household summary in household, detailed industry recode, full or part time employment stat, tax filer stat] -> weeks worked in year
+[detailed household summary in household, detailed occupation recode, full or part time employment stat, tax filer stat] -> num persons worked for employer
+[detailed household summary in household, detailed occupation recode, full or part time employment stat, tax filer stat] -> weeks worked in year
+[detailed household summary in household, detailed occupation recode, tax filer stat, veterans benefits] -> weeks worked in year
+[detailed household summary in household, full or part time employment stat, num persons worked for employer, tax filer stat] -> marital status
+[detailed household summary in household, full or part time employment stat, marital status, num persons worked for employer] -> weeks worked in year
+[detailed household summary in household, full or part time employment stat, tax filer stat, weeks worked in year] -> marital status
+[detailed industry recode, full or part time employment stat, marital status, tax filer stat] -> weeks worked in year
+[detailed occupation recode, full or part time employment stat, marital status, tax filer stat] -> num persons worked for employer
+[detailed occupation recode, full or part time employment stat, marital status, tax filer stat] -> weeks worked in year
+[detailed occupation recode, full or part time employment stat, tax filer stat, veterans benefits] -> weeks worked in year
+[detailed household and family stat, full or part time employment stat, marital status, veterans benefits, weeks worked in year] -> tax filer stat
+[detailed household summary in household, detailed industry recode, full or part time employment stat, marital status, num persons worked for employer] -> tax filer stat
+[detailed household summary in household, detailed industry recode, full or part time employment stat, marital status, weeks worked in year] -> tax filer stat
+[detailed household summary in household, detailed industry recode, full or part time employment stat, marital status, veterans benefits] -> weeks worked in year
+[detailed household summary in household, detailed occupation recode, full or part time employment stat, marital status, num persons worked for employer] -> tax filer stat
+[detailed household summary in household, detailed occupation recode, full or part time employment stat, marital status, veterans benefits] -> num persons worked for employer
+[detailed household summary in household, detailed occupation recode, full or part time employment stat, marital status, weeks worked in year] -> tax filer stat
+[detailed household summary in household, detailed occupation recode, full or part time employment stat, marital status, veterans benefits] -> weeks worked in year

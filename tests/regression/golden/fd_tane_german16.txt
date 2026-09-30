@@ -1,0 +1,113 @@
+[Attribute1, Attribute10, Attribute12, Attribute14, Attribute15, Attribute16, Attribute2, Attribute6, Attribute7] -> Attribute3
+[Attribute1, Attribute11, Attribute12, Attribute13, Attribute14, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute12, Attribute14, Attribute15, Attribute16, Attribute3, Attribute7, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute12, Attribute14, Attribute15, Attribute3, Attribute6, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute12, Attribute14, Attribute15, Attribute3, Attribute6, Attribute8, Attribute9] -> Attribute7
+[Attribute1, Attribute11, Attribute12, Attribute14, Attribute3, Attribute6, Attribute7, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute12, Attribute16, Attribute2, Attribute6, Attribute9] -> Attribute14
+[Attribute1, Attribute11, Attribute12, Attribute16, Attribute3, Attribute4, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute12, Attribute16, Attribute4, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute11, Attribute12, Attribute2, Attribute8, Attribute9] -> Attribute15
+[Attribute1, Attribute11, Attribute12, Attribute4, Attribute6, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute11, Attribute12, Attribute4, Attribute6, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute13, Attribute14, Attribute15, Attribute16, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute13, Attribute14, Attribute3, Attribute7] -> Attribute10
+[Attribute1, Attribute11, Attribute13, Attribute14, Attribute7, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute13, Attribute15, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute11, Attribute13, Attribute16, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute11, Attribute13, Attribute3, Attribute7, Attribute9] -> Attribute15
+[Attribute1, Attribute11, Attribute14, Attribute16, Attribute2, Attribute4, Attribute7] -> Attribute3
+[Attribute1, Attribute11, Attribute14, Attribute16, Attribute4, Attribute6, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute14, Attribute16, Attribute4, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute11, Attribute14, Attribute3, Attribute4, Attribute6, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute11, Attribute14, Attribute4, Attribute6, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute11, Attribute15, Attribute16, Attribute2, Attribute3, Attribute6, Attribute7] -> Attribute14
+[Attribute1, Attribute11, Attribute16, Attribute2, Attribute4, Attribute8] -> Attribute10
+[Attribute1, Attribute11, Attribute16, Attribute2, Attribute6, Attribute7, Attribute9] -> Attribute14
+[Attribute1, Attribute12, Attribute13, Attribute14, Attribute15] -> Attribute10
+[Attribute1, Attribute12, Attribute13, Attribute14, Attribute16, Attribute8] -> Attribute10
+[Attribute1, Attribute12, Attribute13, Attribute14, Attribute6, Attribute9] -> Attribute10
+[Attribute1, Attribute12, Attribute13, Attribute14, Attribute7] -> Attribute10
+[Attribute1, Attribute12, Attribute13, Attribute15, Attribute3] -> Attribute10
+[Attribute1, Attribute12, Attribute13, Attribute3, Attribute7] -> Attribute10
+[Attribute1, Attribute12, Attribute13, Attribute7, Attribute9] -> Attribute10
+[Attribute1, Attribute12, Attribute14, Attribute2, Attribute6, Attribute8, Attribute9] -> Attribute15
+[Attribute1, Attribute12, Attribute16, Attribute2, Attribute3, Attribute6, Attribute9] -> Attribute14
+[Attribute1, Attribute12, Attribute2, Attribute3, Attribute6, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute12, Attribute2, Attribute3, Attribute6, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute12, Attribute2, Attribute3, Attribute6, Attribute8, Attribute9] -> Attribute15
+[Attribute1, Attribute12, Attribute2, Attribute4, Attribute6, Attribute8] -> Attribute10
+[Attribute1, Attribute12, Attribute2, Attribute6, Attribute7, Attribute8, Attribute9] -> Attribute15
+[Attribute1, Attribute13, Attribute14, Attribute15, Attribute2] -> Attribute10
+[Attribute1, Attribute13, Attribute14, Attribute15, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute13, Attribute14, Attribute16, Attribute2] -> Attribute10
+[Attribute1, Attribute13, Attribute14, Attribute16, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute13, Attribute14, Attribute2, Attribute3] -> Attribute10
+[Attribute1, Attribute13, Attribute14, Attribute3, Attribute6, Attribute9] -> Attribute10
+[Attribute1, Attribute13, Attribute14, Attribute3, Attribute8] -> Attribute10
+[Attribute1, Attribute13, Attribute14, Attribute6, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute13, Attribute14, Attribute7, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute13, Attribute15, Attribute2, Attribute7] -> Attribute10
+[Attribute1, Attribute13, Attribute15, Attribute3, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute13, Attribute15, Attribute7, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute13, Attribute16, Attribute3, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute13, Attribute16, Attribute4, Attribute7] -> Attribute10
+[Attribute1, Attribute13, Attribute3, Attribute4, Attribute8] -> Attribute10
+[Attribute1, Attribute13, Attribute4, Attribute6, Attribute9] -> Attribute10
+[Attribute1, Attribute13, Attribute4, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute14, Attribute16, Attribute2, Attribute3, Attribute4, Attribute8] -> Attribute10
+[Attribute1, Attribute14, Attribute16, Attribute2, Attribute4, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute14, Attribute2, Attribute4, Attribute6, Attribute8] -> Attribute10
+[Attribute1, Attribute16, Attribute2, Attribute4, Attribute6, Attribute8] -> Attribute10
+[Attribute1, Attribute16, Attribute2, Attribute4, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute2, Attribute3, Attribute4, Attribute6, Attribute8] -> Attribute10
+[Attribute1, Attribute2, Attribute3, Attribute4, Attribute8, Attribute9] -> Attribute10
+[Attribute1, Attribute2, Attribute4, Attribute6, Attribute7, Attribute8] -> Attribute10
+[Attribute1, Attribute2, Attribute4, Attribute6, Attribute8, Attribute9] -> Attribute10
+[Attribute10, Attribute11, Attribute12, Attribute16, Attribute2, Attribute3, Attribute6, Attribute7] -> Attribute14
+[Attribute10, Attribute11, Attribute12, Attribute16, Attribute2, Attribute3, Attribute7, Attribute8] -> Attribute14
+[Attribute10, Attribute12, Attribute13, Attribute15, Attribute3, Attribute6, Attribute7] -> Attribute16
+[Attribute10, Attribute12, Attribute15, Attribute16, Attribute2, Attribute3, Attribute6, Attribute7, Attribute9] -> Attribute14
+[Attribute10, Attribute12, Attribute16, Attribute2, Attribute3, Attribute4, Attribute6, Attribute7] -> Attribute14
+[Attribute10, Attribute12, Attribute16, Attribute2, Attribute6, Attribute7, Attribute8] -> Attribute14
+[Attribute10, Attribute13, Attribute14, Attribute4, Attribute6, Attribute7] -> Attribute15
+[Attribute10, Attribute13, Attribute16, Attribute2, Attribute3, Attribute7] -> Attribute14
+[Attribute11, Attribute12, Attribute13, Attribute16, Attribute3, Attribute9] -> Attribute15
+[Attribute11, Attribute12, Attribute16, Attribute2, Attribute6, Attribute7, Attribute9] -> Attribute14
+[Attribute11, Attribute13, Attribute14, Attribute16, Attribute7, Attribute8] -> Attribute10
+[Attribute11, Attribute13, Attribute15, Attribute16, Attribute4, Attribute8] -> Attribute10
+[Attribute11, Attribute13, Attribute15, Attribute16, Attribute7, Attribute8] -> Attribute10
+[Attribute11, Attribute13, Attribute15, Attribute3, Attribute7, Attribute8] -> Attribute10
+[Attribute11, Attribute13, Attribute16, Attribute3, Attribute7, Attribute8] -> Attribute10
+[Attribute11, Attribute13, Attribute16, Attribute3, Attribute8, Attribute9] -> Attribute10
+[Attribute11, Attribute13, Attribute16, Attribute6, Attribute7, Attribute8] -> Attribute10
+[Attribute11, Attribute13, Attribute16, Attribute7, Attribute8, Attribute9] -> Attribute10
+[Attribute11, Attribute14, Attribute15, Attribute16, Attribute2, Attribute4, Attribute6, Attribute7] -> Attribute3
+[Attribute11, Attribute14, Attribute15, Attribute16, Attribute4, Attribute6, Attribute7, Attribute8, Attribute9] -> Attribute3
+[Attribute12, Attribute13, Attribute14, Attribute15, Attribute7, Attribute8] -> Attribute10
+[Attribute12, Attribute13, Attribute14, Attribute16, Attribute8, Attribute9] -> Attribute10
+[Attribute12, Attribute13, Attribute15, Attribute2, Attribute7] -> Attribute14
+[Attribute12, Attribute13, Attribute16, Attribute3, Attribute8, Attribute9] -> Attribute10
+[Attribute12, Attribute13, Attribute16, Attribute4, Attribute8] -> Attribute10
+[Attribute12, Attribute13, Attribute16, Attribute7, Attribute8] -> Attribute10
+[Attribute12, Attribute13, Attribute4, Attribute7] -> Attribute15
+[Attribute12, Attribute13, Attribute7, Attribute8, Attribute9] -> Attribute10
+[Attribute12, Attribute14, Attribute16, Attribute2, Attribute4, Attribute6, Attribute7] -> Attribute3
+[Attribute12, Attribute14, Attribute16, Attribute2, Attribute4, Attribute6, Attribute8] -> Attribute10
+[Attribute12, Attribute16, Attribute2, Attribute6, Attribute7, Attribute8, Attribute9] -> Attribute14
+[Attribute12, Attribute2, Attribute3, Attribute6, Attribute7, Attribute8, Attribute9] -> Attribute15
+[Attribute13, Attribute14, Attribute15, Attribute16, Attribute8, Attribute9] -> Attribute10
+[Attribute13, Attribute14, Attribute15, Attribute3, Attribute6, Attribute7, Attribute9] -> Attribute16
+[Attribute13, Attribute14, Attribute16, Attribute2, Attribute8] -> Attribute10
+[Attribute13, Attribute14, Attribute16, Attribute4, Attribute6, Attribute7] -> Attribute15
+[Attribute13, Attribute14, Attribute16, Attribute4, Attribute6, Attribute8] -> Attribute10
+[Attribute13, Attribute14, Attribute2, Attribute3, Attribute8] -> Attribute10
+[Attribute13, Attribute14, Attribute2, Attribute4] -> Attribute10
+[Attribute13, Attribute15, Attribute16, Attribute4, Attribute6, Attribute8] -> Attribute3
+[Attribute13, Attribute15, Attribute16, Attribute7, Attribute8, Attribute9] -> Attribute10
+[Attribute13, Attribute15, Attribute2, Attribute7, Attribute8] -> Attribute10
+[Attribute13, Attribute15, Attribute3, Attribute7, Attribute8, Attribute9] -> Attribute10
+[Attribute13, Attribute2, Attribute8, Attribute9] -> Attribute10
+[Attribute14, Attribute2, Attribute3, Attribute4, Attribute6, Attribute8, Attribute9] -> Attribute10
+[Attribute5] -> Attribute10
+[Attribute5] -> Attribute14

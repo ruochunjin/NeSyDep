@@ -1,0 +1,111 @@
+{
+  "toy_textbook": {
+    "file": "fd_pyref_toy.txt",
+    "n": 14
+  },
+  "toy_fulltable": {
+    "file": "fd_tane_toy.txt",
+    "n": 6,
+    "n_dfd_subset": 6,
+    "params": {
+      "support": 1,
+      "confidence": 1.0,
+      "max_lhs": 0,
+      "col_prefix": null
+    }
+  },
+  "german16_fulltable": {
+    "file": "fd_tane_german16.txt",
+    "n": 113,
+    "n_dfd_subset": 50,
+    "params": {
+      "support": 5,
+      "confidence": 1.0,
+      "max_lhs": 0,
+      "col_prefix": 16
+    }
+  },
+  "german_pipeline": {
+    "file": "fd_pipeline_german.txt",
+    "n": 0,
+    "n_approx_violations_full_table": 0,
+    "stats": {
+      "n_rows": 300,
+      "n_columns": 21,
+      "sample_seconds": 0.09188030002405867,
+      "sample_rows": 292,
+      "correlation_seconds": 0.004661899991333485,
+      "correlated_sets": 12,
+      "partition_seconds": 0.0020077000081073493,
+      "n_subtables": 10,
+      "mine_seconds": 0.00974139999016188
+    }
+  },
+  "census_pipeline": {
+    "file": "fd_pipeline_census42.txt",
+    "n": 392,
+    "n_approx_violations_full_table": 266,
+    "stats": {
+      "n_rows": 500,
+      "n_columns": 42,
+      "sample_seconds": 0.21764869999606162,
+      "sample_rows": 497,
+      "correlation_seconds": 0.008306799980346113,
+      "correlated_sets": 33,
+      "partition_seconds": 0.004885999980615452,
+      "n_subtables": 25,
+      "mine_seconds": 0.1635303999937605
+    }
+  },
+  "toy_cfd": {
+    "fd-first": {
+      "file": "cfd_fd-first_toy.txt",
+      "n": 89,
+      "strategies_checked": 4
+    },
+    "ctane": {
+      "file": "cfd_ctane_toy.txt",
+      "n": 11,
+      "strategies_checked": 6
+    },
+    "params": {
+      "support": 1,
+      "confidence": 1.0,
+      "max_lhs": 2
+    }
+  },
+  "german_cfd": {
+    "fd-first": {
+      "file": "cfd_fd-first_german.txt",
+      "n": 164,
+      "strategies_checked": 4
+    },
+    "ctane": {
+      "file": "cfd_ctane_german.txt",
+      "n": 39,
+      "strategies_checked": 6
+    },
+    "params": {
+      "support": 5,
+      "confidence": 0.95,
+      "max_lhs": 2
+    }
+  },
+  "census_cfd": {
+    "fd-first": {
+      "file": "cfd_fd-first_census42.txt",
+      "n": 3224,
+      "strategies_checked": 4
+    },
+    "ctane": {
+      "file": "cfd_ctane_census42.txt",
+      "n": 285,
+      "strategies_checked": 6
+    },
+    "params": {
+      "support": 5,
+      "confidence": 0.95,
+      "max_lhs": 2
+    }
+  }
+}

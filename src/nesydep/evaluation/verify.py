@@ -5,12 +5,13 @@ Semantics (following the CFD literature and the prototypes' ``verify*.py``):
 - *matching* a pattern position: equality for constant values; any value for
   the wildcard ``"_"``.
 - ``support``   = rows matching the constant LHS positions **and** the RHS
-  pattern.
+  pattern (for variable-RHS CFDs: rows matching the constant LHS positions).
 - ``confidence`` = support / rows matching the constant LHS positions.
 
-For variable CFDs (wildcard RHS) the embedded FD is additionally checked:
-within rows matching the constant LHS positions, tuples agreeing on all LHS
-attributes must agree on the RHS.
+For variable CFDs (wildcard RHS, CTane semantics): rows are grouped by the
+bound LHS (constant + wildcard positions); within each group the RHS must be
+constant. confidence = 1 − (minimum tuples to remove for the embedded FD to
+hold) / (matching rows).
 """
 from __future__ import annotations
 
@@ -45,25 +46,20 @@ def verify_cfd(frame: pd.DataFrame, cfd: CFD) -> tuple[int, float]:
         return 0, 0.0
 
     if cfd.rhs_pattern == WILDCARD:
-        # Variable CFD: every row matches the RHS pattern; confidence reflects
-        # how well the embedded FD holds among matching rows.
+        # Variable CFD (CTane semantics): bind the wildcard LHS positions per
+        # row; rows sharing the same bound LHS must share the RHS value.
+        # confidence = 1 − (min tuples to remove to make it hold) / n_matching.
         sub = frame.loc[lhs_mask, list(cfd.lhs) + [cfd.rhs]]
-        consistent = sub.groupby(list(cfd.lhs), sort=False)[cfd.rhs].nunique()
-        if (consistent <= 1).all():
-            return n_lhs, 1.0
-        return n_lhs, 1.0 - _violation_fraction(sub, list(cfd.lhs), cfd.rhs)
+        if sub.empty:
+            return 0, 0.0
+        violations = 0
+        for _, group in sub.groupby(list(cfd.lhs), sort=False):
+            violations += len(group) - group[cfd.rhs].value_counts().max()
+        return n_lhs, 1.0 - violations / n_lhs
 
     rhs_mask = frame[cfd.rhs].astype("string") == cfd.rhs_pattern
     support = int((lhs_mask & rhs_mask).sum())
     return support, support / n_lhs
-
-
-def _violation_fraction(sub: pd.DataFrame, lhs: list[str], rhs: str) -> float:
-    """Fraction of same-LHS groups that contain >1 distinct RHS value."""
-    if sub.empty:
-        return 0.0
-    groups = sub.groupby(lhs, sort=False)[rhs].nunique()
-    return float((groups > 1).sum() / len(groups)) if len(groups) else 0.0
 
 
 def verify_fd(frame: pd.DataFrame, fd: FD) -> tuple[int, float]:
