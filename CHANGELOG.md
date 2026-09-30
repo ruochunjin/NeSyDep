@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.3 (2026-10-01)
+
+- Removed pytest `pythonpath=["src"]` — it shadowed installed wheels with the
+  source tree, silently skipping native-kernel tests in wheel validation.
+  Tests always run against the installed package now.
+
 ## v0.1.2 (2026-10-01)
 
 - Fixed wheel-test workflow: test module no longer shadows the installed
