@@ -1,8 +1,8 @@
 """``nesydep`` command-line interface (typer)."""
+
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
 
 import typer
 
@@ -17,14 +17,14 @@ app = typer.Typer(
 def discover(
     data: Path = typer.Argument(..., help="Input table (CSV or parquet)."),
     algo: str = typer.Option("bsfd", "--algo", "-a", help="Registered algorithm name."),
-    support: Optional[int] = typer.Option(None, help="Minimum support (rows)."),
-    confidence: Optional[float] = typer.Option(None, help="Minimum confidence in (0, 1]."),
-    max_lhs: Optional[int] = typer.Option(None, help="Maximum LHS size (0 = unlimited)."),
-    strategy: Optional[str] = typer.Option(None, help="CFD search strategy (scfdm/ctane)."),
-    correlation: Optional[str] = typer.Option(
+    support: int | None = typer.Option(None, help="Minimum support (rows)."),
+    confidence: float | None = typer.Option(None, help="Minimum confidence in (0, 1]."),
+    max_lhs: int | None = typer.Option(None, help="Maximum LHS size (0 = unlimited)."),
+    strategy: str | None = typer.Option(None, help="CFD search strategy (scfdm/ctane)."),
+    correlation: str | None = typer.Option(
         None, help="Correlation extractor for scfdm: transformer|lightweight."
     ),
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output file."),
+    output: Path | None = typer.Option(None, "--output", "-o", help="Output file."),
     fmt: str = typer.Option("txt", "--format", "-f", help="txt | csv | json | parquet"),
 ) -> None:
     """Discover dependencies in DATA and write them out."""
@@ -59,8 +59,9 @@ def discover(
 
     result = algo_obj.discover(str(data))
     _write_result(result, output, fmt)
-    typer.echo(f"discovered {len(result)} dependencies "
-               f"(mine: {result.stats.get('mine_seconds', 0):.2f}s)")
+    typer.echo(
+        f"discovered {len(result)} dependencies (mine: {result.stats.get('mine_seconds', 0):.2f}s)"
+    )
 
 
 @app.command()
@@ -103,8 +104,10 @@ def verify(
     frame = as_categorical_view(as_dataset(data))
     results = _verify(frame, load_dependencies(deps), min_support, min_confidence)
     held = sum(v.holds for v in results)
-    typer.echo(f"{held}/{len(results)} dependencies hold "
-               f"(support>={min_support}, confidence>={min_confidence})")
+    typer.echo(
+        f"{held}/{len(results)} dependencies hold "
+        f"(support>={min_support}, confidence>={min_confidence})"
+    )
     for v in results:
         if not v.holds:
             typer.echo(f"  FAIL {v.dependency} (support={v.support}, conf={v.confidence:.3f})")
@@ -137,7 +140,7 @@ def sample(
     typer.echo(f"sampled {len(frame)} -> {len(out)} rows -> {output}")
 
 
-def _write_result(result, output: Optional[Path], fmt: str) -> None:
+def _write_result(result, output: Path | None, fmt: str) -> None:
     if output is None:
         for dep in result:
             typer.echo(str(dep))

@@ -1,4 +1,5 @@
 """Round-trip tests for the legacy text formats."""
+
 from nesydep.core.dependency import CFD, FD
 from nesydep.io.legacy import load_dependencies, parse_cfd, parse_fd, parse_line
 

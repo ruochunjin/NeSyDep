@@ -4,10 +4,11 @@ Set-level comparison over normalised keys, matching both prototype
 evaluation modules (``effectiveness_measure.py`` for FDs,
 ``supplemental/evaluation/metrics.py`` for CFDs).
 """
+
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Iterable
 
 from nesydep.core.dependency import Dependency
 from nesydep.io.legacy import normalize_key

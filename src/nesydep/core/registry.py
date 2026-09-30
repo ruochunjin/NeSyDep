@@ -4,10 +4,12 @@ Every stage implementation and every algorithm registers under a string name.
 Third-party packages can contribute algorithms via the ``nesydep.miners`` /
 ``nesydep.samplers`` / ... entry-point groups without touching this package.
 """
+
 from __future__ import annotations
 
+from collections.abc import Callable
 from importlib import metadata
-from typing import Any, Callable, Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 T = TypeVar("T")
 
@@ -40,9 +42,7 @@ class Registry(Generic[T]):
             return self._items[name]
         except KeyError:
             available = ", ".join(sorted(self._items)) or "(none)"
-            raise KeyError(
-                f"unknown {self.kind} {name!r}. Available: {available}"
-            ) from None
+            raise KeyError(f"unknown {self.kind} {name!r}. Available: {available}") from None
 
     def names(self) -> list[str]:
         self._load_plugins()

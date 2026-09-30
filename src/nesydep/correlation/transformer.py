@@ -14,6 +14,7 @@ z/m) selects the minimal antecedent set per target.
 
 Requires the ``transformer`` extra (torch).
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -58,20 +59,27 @@ class AttrFinderModel:
 
         d_model, nhead, num_layers = cfg.d_model, 8, 3
         embeddings = nn.ModuleDict(
-            {f"c{j}": nn.Embedding(max(2, self.cardinalities[c]), d_model)
-             for j, c in enumerate(self.columns)}
+            {
+                f"c{j}": nn.Embedding(max(2, self.cardinalities[c]), d_model)
+                for j, c in enumerate(self.columns)
+            }
         )
         reconstructors = nn.ModuleDict(
-            {f"c{j}": nn.Linear(d_model, max(2, self.cardinalities[c]))
-             for j, c in enumerate(self.columns)}
+            {
+                f"c{j}": nn.Linear(d_model, max(2, self.cardinalities[c]))
+                for j, c in enumerate(self.columns)
+            }
         )
         layer = nn.TransformerEncoderLayer(d_model=d_model, nhead=nhead, batch_first=True)
         self.embeddings = embeddings
         self.reconstructors = reconstructors
         self.encoder = nn.TransformerEncoder(layer, num_layers=num_layers)
         self.device = torch.device(
-            "cuda" if cfg.device == "auto" and torch.cuda.is_available()
-            else cfg.device if cfg.device != "auto" else "cpu"
+            "cuda"
+            if cfg.device == "auto" and torch.cuda.is_available()
+            else cfg.device
+            if cfg.device != "auto"
+            else "cpu"
         )
 
     def forward(self, batch, mask_idx: int | None = None):
@@ -123,7 +131,7 @@ def train_attrfinder(frame: pd.DataFrame, cfg: TransformerCorrelationConfig) -> 
     for _epoch in range(cfg.epochs):
         perm = torch.randperm(n, device=device)
         for start in range(0, n, batch_size):
-            batch = model.codes[perm[start:start + batch_size]]
+            batch = model.codes[perm[start : start + batch_size]]
             mask_idx = int(rng.integers(m))
             optimizer.zero_grad()
             logits = model.forward(batch, mask_idx=mask_idx)
@@ -140,7 +148,7 @@ def reconstruction_accuracy(model: AttrFinderModel, target: int, masked: int | N
     correct = total = 0
     with torch.no_grad():
         for start in range(0, model.codes.shape[0], 4096):
-            batch = model.codes[start:start + 4096]
+            batch = model.codes[start : start + 4096]
             logits = model.forward(batch, mask_idx=masked)
             pred = logits[target].argmax(dim=1)
             correct += int((pred == batch[:, target]).sum())

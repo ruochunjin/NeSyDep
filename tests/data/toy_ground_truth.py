@@ -12,6 +12,7 @@ And these exact CFDs hold:
 - [city] => state, (New York || NY)   etc. — constant CFDs per city
 - [zip] => city,  (_ || _)            variable CFD (pattern wildcard)
 """
+
 from __future__ import annotations
 
 KEY_COLUMN = "id"

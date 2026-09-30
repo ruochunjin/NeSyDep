@@ -11,6 +11,7 @@ Faithful port of the prototype
 
 Requires the ``lsh`` extra (``datasketch``).
 """
+
 from __future__ import annotations
 
 import numpy as np

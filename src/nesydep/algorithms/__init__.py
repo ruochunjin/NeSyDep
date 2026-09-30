@@ -1,4 +1,5 @@
 """Algorithm presets: named, ready-to-run pipeline compositions."""
+
 from __future__ import annotations
 
 import warnings
@@ -119,9 +120,7 @@ class SCFDM(MiningAlgorithm):
                 else RepresentativeSampleConfig(),
                 "correlation": correlation,
                 "partitioner": VerticalPartitionConfig(),
-                "miner": cfg.miner
-                if isinstance(cfg.miner, CFDMinerConfig)
-                else CFDMinerConfig(),
+                "miner": cfg.miner if isinstance(cfg.miner, CFDMinerConfig) else CFDMinerConfig(),
             },
         )
 
@@ -175,9 +174,7 @@ def _baseline(algo_name: str, miner_name: str, miner_config: Any) -> type[Mining
                 raise TypeError(f"unknown parameter {key!r} for algorithm {algo_name!r}")
 
         def _pipeline(self) -> Pipeline:
-            return Pipeline(
-                miner=miner_name, algorithm=algo_name, configs={"miner": self.config}
-            )
+            return Pipeline(miner=miner_name, algorithm=algo_name, configs={"miner": self.config})
 
     Baseline.__name__ = algo_name.upper().replace("-", "_")
     return ALGORITHMS.register(algo_name, Baseline)

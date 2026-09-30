@@ -9,11 +9,12 @@ The FD line format follows the same convention without patterns:
 
     [A, B] -> C
 """
+
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 from nesydep.core.dependency import CFD, FD, Dependency
 
@@ -67,7 +68,7 @@ def dump_dependencies(deps: Iterable[Dependency], path: str | Path) -> None:
     Path(path).write_text("\n".join(lines) + ("\n" if lines else ""), encoding="utf-8")
 
 
-def normalize_key(dep: Dependency) -> tuple:
+def normalize_key(dep: Dependency) -> tuple[object, ...]:
     """Order-invariant hashable key for set comparisons (regression tests).
 
     The models already sort/dedup LHS on construction, so the key is just a
@@ -75,7 +76,7 @@ def normalize_key(dep: Dependency) -> tuple:
     normalisation is non-trivial.
     """
     if isinstance(dep, CFD):
-        return ("cfd", tuple(zip(dep.lhs, dep.lhs_pattern)), dep.rhs, dep.rhs_pattern)
+        return ("cfd", tuple(zip(dep.lhs, dep.lhs_pattern, strict=True)), dep.rhs, dep.rhs_pattern)
     if isinstance(dep, FD):
         return ("fd", dep.lhs, dep.rhs)
     return (dep.kind, repr(sorted(dep.to_dict().items())))

@@ -5,6 +5,7 @@ Refactored from the prototype ablation baselines
 correlation stage on machines without torch, trading some recall for a
 fraction of the runtime.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -34,11 +35,9 @@ class LightweightCorrelation:
         cols = list(frame.columns)
         for j, target in enumerate(cols):
             order = np.argsort(-scores[j])
-            antecedents = [
-                cols[i]
-                for i in order
-                if i != j and scores[j, i] >= cfg.threshold
-            ][: cfg.max_antecedents]
+            antecedents = [cols[i] for i in order if i != j and scores[j, i] >= cfg.threshold][
+                : cfg.max_antecedents
+            ]
             if antecedents:
                 sets.append(CorrelatedSet(antecedents=tuple(sorted(antecedents)), target=target))
         return CorrelationGraph(sets)

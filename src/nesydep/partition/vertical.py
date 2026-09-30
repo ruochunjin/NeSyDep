@@ -3,6 +3,7 @@
 Merges the sub-table generation logic of both prototypes
 (``code-for-CFD/.../sampling/generate_sub_tables.py`` and the BSFD subsets).
 """
+
 from __future__ import annotations
 
 import pandas as pd

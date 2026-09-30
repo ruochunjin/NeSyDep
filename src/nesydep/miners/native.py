@@ -8,6 +8,7 @@ Sub-table-level parallelism lives here in Python (``ProcessPoolExecutor``),
 replacing the prototypes' MPI layer. OpenMP inside the kernels is configured
 through the config's ``openmp_threads``.
 """
+
 from __future__ import annotations
 
 from concurrent.futures import ProcessPoolExecutor
@@ -37,7 +38,7 @@ def _frame_payload(st: SubTable) -> tuple[list[str], list[list[str]]]:
 
 
 def _run_parallel(
-    call: "_NativeCall",
+    call: _NativeCall,
     subtables: list[SubTable],
     n_jobs: int,
 ) -> list:

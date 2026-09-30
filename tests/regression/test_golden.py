@@ -5,6 +5,7 @@ cross-checks passed (TANE textbook-verified holds+minimal, DFD ⊆ TANE,
 within-family strategy agreement, CFD semantic verification). See
 ``tests/regression/README_golden.md`` for provenance.
 """
+
 import json
 import sys
 from pathlib import Path
@@ -33,7 +34,7 @@ def load_golden_cfd(filename: str) -> set:
     from nesydep.io.legacy import load_dependencies
 
     return {
-        (tuple(sorted(zip(d.lhs, d.lhs_pattern))), d.rhs, d.rhs_pattern)
+        (tuple(sorted(zip(d.lhs, d.lhs_pattern, strict=True))), d.rhs, d.rhs_pattern)
         for d in load_dependencies(GOLDEN / filename)
     }
 
@@ -53,8 +54,12 @@ def test_fulltable_fd_golden(tag, csv_file):
     key = "toy_fulltable" if tag == "toy" else "german16_fulltable"
     params = MANIFEST[key]["params"]
     cols, rows = payload(csv_file, params["col_prefix"])
-    mined = {(tuple(sorted(l)), r) for l, r in _core.tane_mine(
-        cols, rows, params["support"], params["confidence"], params["max_lhs"])}
+    mined = {
+        (tuple(sorted(lhs)), r)
+        for lhs, r in _core.tane_mine(
+            cols, rows, params["support"], params["confidence"], params["max_lhs"]
+        )
+    }
     assert mined == load_golden_fd(MANIFEST[key]["file"])
 
 
@@ -67,11 +72,16 @@ def test_pipeline_fd_golden_reproduces():
     )
     from nesydep.core.pipeline import Pipeline
 
-    for key, csv_file in [("german_pipeline", "german_credit_sample.csv"),
-                          ("census_pipeline", "census42_sample.csv")]:
+    for key, csv_file in [
+        ("german_pipeline", "german_credit_sample.csv"),
+        ("census_pipeline", "census42_sample.csv"),
+    ]:
         pipe = Pipeline(
-            sampler="stratified", correlation="lightweight", partitioner="vertical",
-            miner="pfminer", algorithm=f"golden-{key}",
+            sampler="stratified",
+            correlation="lightweight",
+            partitioner="vertical",
+            miner="pfminer",
+            algorithm=f"golden-{key}",
             configs={
                 "sampler": StratifiedSampleConfig(ratio=0.5, seed=7),
                 "correlation": LightweightCorrelationConfig(method="pearson", threshold=0.2),
@@ -80,15 +90,19 @@ def test_pipeline_fd_golden_reproduces():
             },
         )
         result = pipe.run(pd.read_csv(DATA / csv_file))
-        assert {(fd.lhs, fd.rhs) for fd in result.fds} == load_golden_fd(
-            MANIFEST[key]["file"]), f"pipeline golden mismatch on {key}"
+        assert {(fd.lhs, fd.rhs) for fd in result.fds} == load_golden_fd(MANIFEST[key]["file"]), (
+            f"pipeline golden mismatch on {key}"
+        )
 
 
 @pytest.mark.parametrize("family", ["fd-first", "ctane"])
 @pytest.mark.parametrize(
     "tag,csv_file",
-    [("toy", "toy_addresses.csv"), ("german", "german_credit_sample.csv"),
-     ("census42", "census42_sample.csv")],
+    [
+        ("toy", "toy_addresses.csv"),
+        ("german", "german_credit_sample.csv"),
+        ("census42", "census42_sample.csv"),
+    ],
 )
 def test_cfd_golden(family, tag, csv_file):
     key = {"toy": "toy_cfd", "german": "german_cfd", "census42": "census_cfd"}[tag]
@@ -96,10 +110,10 @@ def test_cfd_golden(family, tag, csv_file):
     cols, rows = payload(csv_file)
     strategy = "FD-First-DFS-dfs" if family == "fd-first" else "Integrated-BFS"
     mined = {
-        (tuple(sorted(zip(l, p))), r, rp)
-        for l, r, p, rp in _core.cfd_mine(
-            cols, rows, params["support"], params["confidence"],
-            params["max_lhs"], strategy, False)
-        if l  # exclude trivial empty-LHS CFDs (documented kernel quirk)
+        (tuple(sorted(zip(lhs_attrs, patterns, strict=True))), r, rp)
+        for lhs_attrs, r, patterns, rp in _core.cfd_mine(
+            cols, rows, params["support"], params["confidence"], params["max_lhs"], strategy, False
+        )
+        if lhs_attrs  # exclude trivial empty-LHS CFDs (documented kernel quirk)
     }
     assert mined == load_golden_cfd(MANIFEST[key][family]["file"])

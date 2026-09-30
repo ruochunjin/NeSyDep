@@ -1,5 +1,5 @@
 """Sampler and correlation-extractor unit tests."""
-import sys
+
 from pathlib import Path
 
 import pandas as pd
@@ -58,7 +58,11 @@ def test_sampling_bounds():
 
     bounds = compare_bounds(p_hat=0.01, eps=5e-4, eta=0.9, lam=0.05)
     assert set(bounds) == {
-        "variance_augmented", "chebyshev", "bennett", "hybrid_chernoff", "theorem2"
+        "variance_augmented",
+        "chebyshev",
+        "bennett",
+        "hybrid_chernoff",
+        "theorem2",
     }
     assert all(v >= 1 for v in bounds.values())
     frame = pd.read_csv(DATA)

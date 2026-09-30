@@ -9,23 +9,23 @@ Typical usage::
     result = miner.discover(df)
     metrics = nd.evaluate(result, ground_truth="goldens/hospital.txt")
 """
+
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
 
-from nesydep.core.dependency import CFD, FD, WILDCARD, Dependency
-from nesydep.core.pipeline import Pipeline
-from nesydep.core.registry import ALGORITHMS, MINERS
-from nesydep.core.results import MiningResult
-
 # Importing the built-in stage/algorithm subpackages registers their members.
 from nesydep import algorithms as _algorithms  # noqa: F401
-from nesydep.algorithms import BSFD, SCFDM
 from nesydep import correlation as _correlation  # noqa: F401
 from nesydep import miners as _miners  # noqa: F401
 from nesydep import partition as _partition  # noqa: F401
 from nesydep import sampling as _sampling  # noqa: F401
+from nesydep.algorithms import BSFD, SCFDM
+from nesydep.core.dependency import CFD, FD, WILDCARD, Dependency
+from nesydep.core.pipeline import Pipeline
+from nesydep.core.registry import ALGORITHMS
+from nesydep.core.results import MiningResult
 
 __version__ = "0.1.0"
 

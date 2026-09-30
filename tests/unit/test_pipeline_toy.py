@@ -3,6 +3,7 @@
 The naive reference miner is exact, so on ``toy_addresses.csv`` it must
 recover the hand-verified ground truth.
 """
+
 import sys
 from pathlib import Path
 
@@ -31,13 +32,13 @@ def test_naive_miner_finds_ground_truth(frame):
     # FDs (any large-enough column combo is unique and hence a determinant).
     # We therefore check recall against the hand-verified set, and soundness
     # of everything it reports.
-    assert ALL_MINIMAL_FDS <= found
+    assert found >= ALL_MINIMAL_FDS
     assert all(v.holds for v in verify(frame.astype("string"), result.fds))
 
 
 def test_discover_one_liner_with_reference_miner(frame):
     result = nd.discover(frame, algo="pyref-fd")
-    assert ALL_MINIMAL_FDS <= {(fd.lhs, fd.rhs) for fd in result.fds}
+    assert {(fd.lhs, fd.rhs) for fd in result.fds} >= ALL_MINIMAL_FDS
     assert result.algorithm == "pyref-fd"
     assert result.stats["n_rows"] == 12
 

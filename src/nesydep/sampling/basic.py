@@ -1,11 +1,11 @@
 """Row-level samplers."""
+
 from __future__ import annotations
 
 import pandas as pd
 
 from nesydep.core.config import (
     RandomSampleConfig,
-    RepresentativeSampleConfig,
     StratifiedSampleConfig,
 )
 from nesydep.core.registry import SAMPLERS

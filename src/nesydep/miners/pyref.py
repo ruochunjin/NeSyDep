@@ -7,6 +7,7 @@ Correct-but-simple implementations used for:
 
 Not optimised — do not use on large data.
 """
+
 from __future__ import annotations
 
 from itertools import combinations

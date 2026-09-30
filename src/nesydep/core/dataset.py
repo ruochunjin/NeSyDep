@@ -7,6 +7,7 @@ semantics require string-typed values (pattern matching), so
 Direct database connections are intentionally out of scope for v1 — read with
 SQLAlchemy/pandas first, then wrap the DataFrame.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -51,7 +52,7 @@ class CSVDataset:
     """Lazily loaded CSV file."""
 
     path: Path
-    read_kwargs: dict = field(default_factory=dict)
+    read_kwargs: dict[str, object] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         self.path = Path(self.path)
@@ -94,7 +95,7 @@ class ParquetDataset:
     def n_rows(self) -> int:
         import pyarrow.parquet as pq
 
-        return pq.read_metadata(self.path).num_rows
+        return int(pq.read_metadata(self.path).num_rows)
 
 
 def as_dataset(data: DatasetLike | pd.DataFrame | str | Path) -> DatasetLike:
@@ -106,7 +107,7 @@ def as_dataset(data: DatasetLike | pd.DataFrame | str | Path) -> DatasetLike:
         return data  # type: ignore[return-value]
     if isinstance(data, pd.DataFrame):
         return PandasDataset(data)
-    path = Path(data)
+    path = Path(data)  # type: ignore[arg-type]  # narrowed by the duck-type guard above
     if path.suffix.lower() in {".parquet", ".pq"}:
         return ParquetDataset(path)
     return CSVDataset(path)

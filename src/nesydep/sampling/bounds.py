@@ -11,6 +11,7 @@ Notation (mirrors the paper):
   * ``lam``       -- Chernoff ratio λ.
   * ``delta_hat`` -- normalised support threshold δ̂.
 """
+
 from __future__ import annotations
 
 import math

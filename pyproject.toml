@@ -87,7 +87,11 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM", "C4", "PLC", "PLE"]
-ignore = ["E501"]  # line length handled by formatter
+ignore = [
+    "E501",    # line length handled by formatter
+    "PLC0415", # function-level imports are deliberate: optional extras (torch, pgmpy) must not be imported eagerly
+    "B008",    # typer's Option()/Argument() in defaults is the intended idiom
+]
 
 [tool.mypy]
 python_version = "3.10"
@@ -97,7 +101,7 @@ strict = true
 files = ["src/nesydep/core", "src/nesydep/io"]
 
 [[tool.mypy.overrides]]
-module = ["nesydep._core.*"]
+module = ["nesydep._core.*", "pandas.*", "pyarrow.*", "numpy.*"]
 ignore_missing_imports = true
 
 [tool.coverage.run]

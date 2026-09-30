@@ -9,6 +9,7 @@ then take the target's Markov blanket as its correlated attribute set.
 Requires the ``bn`` extra (pgmpy). The prototype's ``global_data``
 multiprocessing pattern is replaced by plain function arguments.
 """
+
 from __future__ import annotations
 
 import pandas as pd
@@ -101,10 +102,7 @@ class BNCorrelation:
             # Forbid every edge that does not touch the target: the learned
             # graph then isolates the target's direct dependency structure.
             black_list = [
-                (x, y)
-                for x in nodes
-                for y in nodes
-                if x != y and x != target and y != target
+                (x, y) for x in nodes for y in nodes if x != y and x != target and y != target
             ]
             blanket = _learn_markov_blanket((data, target, cfg.score, black_list, int(1e4)))
             antecedents = tuple(a for a in blanket if a != target)

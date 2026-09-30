@@ -13,6 +13,7 @@ bound LHS (constant + wildcard positions); within each group the RHS must be
 constant. confidence = 1 − (minimum tuples to remove for the embedded FD to
 hold) / (matching rows).
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

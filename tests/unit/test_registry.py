@@ -1,4 +1,5 @@
 """Registry behaviour, including entry-point plugin discovery."""
+
 import pytest
 
 from nesydep.core.registry import ALGORITHMS, MINERS, Registry

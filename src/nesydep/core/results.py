@@ -4,13 +4,15 @@
 components can be diffed against frozen golden outputs from the original
 research code (see ``tests/regression/README_golden.md``).
 """
+
 from __future__ import annotations
 
 import json
 import time
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Iterable
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     import pandas as pd

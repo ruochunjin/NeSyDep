@@ -1,4 +1,5 @@
 """Unit tests for the dependency models."""
+
 import pytest
 
 from nesydep.core.dependency import CFD, FD, WILDCARD, Dependency

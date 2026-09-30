@@ -5,10 +5,11 @@ scripts) becomes a typed field here; defaults carry the paper values.
 ``"auto"`` sentinel values trigger the papers' adaptive mechanisms
 (sampling lower bound, entropy-based thresholds) instead of fixed numbers.
 """
+
 from __future__ import annotations
 
 import os
-from typing import Literal, Union
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -46,7 +47,7 @@ class RepresentativeSampleConfig(StageConfig):
     """
 
     name: Literal["representative"] = "representative"
-    bound: Union[int, Literal["auto"]] = "auto"
+    bound: int | Literal["auto"] = "auto"
     num_perm: int = 128
     seed: int = 42
     eps: float = 5e-4  # sampling error, used when bound == "auto"
@@ -60,7 +61,7 @@ class RandomSampleConfig(StageConfig):
     seed: int = 42
 
 
-SamplerConfig = Union[StratifiedSampleConfig, RepresentativeSampleConfig, RandomSampleConfig]
+SamplerConfig = StratifiedSampleConfig | RepresentativeSampleConfig | RandomSampleConfig
 
 # -- correlation extraction ------------------------------------------------------
 
@@ -81,7 +82,7 @@ class TransformerCorrelationConfig(StageConfig):
     """
 
     name: Literal["transformer"] = "transformer"
-    threshold: Union[float, Literal["auto"]] = "auto"
+    threshold: float | Literal["auto"] = "auto"
     gamma0: float = 0.85  # retention density floor (paper default)
     z: int = 3  # significance threshold (paper default)
     epochs: int = 12
@@ -98,9 +99,9 @@ class LightweightCorrelationConfig(StageConfig):
     max_antecedents: int = 10
 
 
-CorrelationConfig = Union[
-    BNCorrelationConfig, TransformerCorrelationConfig, LightweightCorrelationConfig
-]
+CorrelationConfig = (
+    BNCorrelationConfig | TransformerCorrelationConfig | LightweightCorrelationConfig
+)
 
 # -- partitioning -----------------------------------------------------------------
 
@@ -133,7 +134,7 @@ class CFDMinerConfig(StageConfig):
     constant_only: bool = False  # True -> SCFDM_part behaviour
 
 
-MinerConfig = Union[FDMinerConfig, CFDMinerConfig]
+MinerConfig = FDMinerConfig | CFDMinerConfig
 
 
 # -- algorithm presets --------------------------------------------------------------
@@ -153,7 +154,7 @@ class SCFDMConfig(BaseModel):
 
     global_: GlobalConfig = Field(default_factory=GlobalConfig)
     sampler: RepresentativeSampleConfig = Field(default_factory=RepresentativeSampleConfig)
-    correlation: Union[TransformerCorrelationConfig, LightweightCorrelationConfig] = Field(
+    correlation: TransformerCorrelationConfig | LightweightCorrelationConfig = Field(
         default_factory=LightweightCorrelationConfig
     )
     miner: CFDMinerConfig = Field(default_factory=CFDMinerConfig)

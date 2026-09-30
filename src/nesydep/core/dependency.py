@@ -8,6 +8,7 @@ prototypes' text format ``[A, B] => C, (a1, b1 || c1)``).
 New dependency kinds (OD, DC, UC, GCFD, ...) subclass :class:`Dependency`
 and register their ``kind`` — nothing else in the core needs to change.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -98,7 +99,7 @@ class CFD(Dependency):
             )
         # Sort LHS attributes together with their patterns so that
         # [A,B]=>(a,b) and [B,A]=>(b,a) normalise to the same object.
-        pairs = sorted(zip(self.lhs, self.lhs_pattern), key=lambda p: p[0])
+        pairs = sorted(zip(self.lhs, self.lhs_pattern, strict=True), key=lambda p: p[0])
         deduped: dict[str, str] = {}
         for attr, pat in pairs:
             if attr in deduped and deduped[attr] != pat:

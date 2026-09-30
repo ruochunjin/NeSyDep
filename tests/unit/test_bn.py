@@ -1,4 +1,5 @@
 """BN SubLearner correlation tests — requires the ``bn`` extra (pgmpy)."""
+
 from pathlib import Path
 
 import pandas as pd

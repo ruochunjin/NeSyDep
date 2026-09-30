@@ -4,6 +4,7 @@ A :class:`Pipeline` wires the five stages together. Stages are addressed by
 registry name, so users can swap a single stage (``correlation="pearson"``)
 or pass pre-built instances.
 """
+
 from __future__ import annotations
 
 import time

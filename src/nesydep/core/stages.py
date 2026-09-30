@@ -11,6 +11,7 @@ under a name (see :mod:`nesydep.core.registry`). End-to-end baselines
 (TANE, DFD, ...) implement only :class:`Miner`; the pipeline substitutes
 identity stages for the rest.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -81,7 +82,9 @@ class CorrelationExtractor(Protocol):
 class Partitioner(Protocol):
     """Project the (sampled) relation into sub-tables."""
 
-    def partition(self, frame: pd.DataFrame, graph: CorrelationGraph, config: Any) -> list[SubTable]: ...
+    def partition(
+        self, frame: pd.DataFrame, graph: CorrelationGraph, config: Any
+    ) -> list[SubTable]: ...
 
 
 @runtime_checkable
@@ -95,7 +98,9 @@ class Miner(Protocol):
 class Evaluator(Protocol):
     """Score a result against ground truth."""
 
-    def evaluate(self, result: MiningResult, ground_truth: list[Dependency]) -> dict[str, float]: ...
+    def evaluate(
+        self, result: MiningResult, ground_truth: list[Dependency]
+    ) -> dict[str, float]: ...
 
 
 # -- identity stages (used by end-to-end baseline algorithms) -----------------
@@ -117,5 +122,7 @@ class FullCorrelation:
 class SingleTablePartitioner:
     """One sub-table = the whole frame (no vertical split)."""
 
-    def partition(self, frame: pd.DataFrame, graph: CorrelationGraph, config: Any) -> list[SubTable]:
+    def partition(
+        self, frame: pd.DataFrame, graph: CorrelationGraph, config: Any
+    ) -> list[SubTable]:
         return [SubTable(frame=frame, name="full")]

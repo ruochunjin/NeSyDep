@@ -10,6 +10,7 @@ key FDs — are invisible to that measure (0/0 confidence), so the toy key
 column's FDs are not expected from the native kernels. The pure-Python
 reference miner uses the textbook definition and does find them.
 """
+
 import sys
 from pathlib import Path
 
@@ -33,32 +34,43 @@ def payload():
 
 def test_tane_finds_nonkey_ground_truth(payload):
     cols, rows = payload
-    found = {(tuple(sorted(l)), r) for l, r in _core.tane_mine(cols, rows, 1, 1.0, 0)}
-    assert found == MINIMAL_FDS | {(("city",), "zip"), (("state",), "zip"),
-                                   (("city",), "state"), (("state",), "city"),
-                                   (("zip",), "city"), (("zip",), "state")}
+    found = {(tuple(sorted(lhs)), r) for lhs, r in _core.tane_mine(cols, rows, 1, 1.0, 0)}
+    assert found == MINIMAL_FDS | {
+        (("city",), "zip"),
+        (("state",), "zip"),
+        (("city",), "state"),
+        (("state",), "city"),
+        (("zip",), "city"),
+        (("zip",), "state"),
+    }
 
 
 def test_tane_and_dfd_agree(payload):
     cols, rows = payload
-    tane = {(tuple(sorted(l)), r) for l, r in _core.tane_mine(cols, rows, 1, 1.0, 0)}
-    dfd = {(tuple(sorted(l)), r) for l, r in _core.dfd_mine(cols, rows, 1, 0.95, 0)}
+    tane = {(tuple(sorted(lhs)), r) for lhs, r in _core.tane_mine(cols, rows, 1, 1.0, 0)}
+    dfd = {(tuple(sorted(lhs)), r) for lhs, r in _core.dfd_mine(cols, rows, 1, 0.95, 0)}
     assert tane == dfd  # independent implementations must agree on exact mining
 
 
 def test_pfminer_matches_tane(payload):
     cols, rows = payload
-    assert (_core.pfminer_mine(cols, rows, 1, 1.0, 0)
-            == _core.tane_mine(cols, rows, 1, 1.0, 0))
+    assert _core.pfminer_mine(cols, rows, 1, 1.0, 0) == _core.tane_mine(cols, rows, 1, 1.0, 0)
 
 
 def test_cfd_mining_constant_and_variable(payload):
     cols, rows = payload
-    cfds = _core.cfd_mine(cols, rows, support=1, confidence=1.0, max_lhs=2,
-                          strategy="FD-First-DFS-dfs", constant_only=False)
+    cfds = _core.cfd_mine(
+        cols,
+        rows,
+        support=1,
+        confidence=1.0,
+        max_lhs=2,
+        strategy="FD-First-DFS-dfs",
+        constant_only=False,
+    )
     assert len(cfds) > 0
     # spot check: the exact city->state constant CFDs must be present
-    tuples = {(tuple(l), r, tuple(p), rp) for l, r, p, rp in cfds}
+    tuples = {(tuple(lhs), r, tuple(p), rp) for lhs, r, p, rp in cfds}
     assert (("city",), "state", ("New York",), "NY") in tuples
     # constant_only removes every wildcarded CFD
     const = _core.cfd_mine(cols, rows, 1, 1.0, 2, "FD-First-DFS-dfs", True)
