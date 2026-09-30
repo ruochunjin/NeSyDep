@@ -151,3 +151,7 @@ def _write_result(result, output: Optional[Path], fmt: str) -> None:
     if fmt not in writers:
         raise typer.BadParameter(f"unknown format {fmt!r}; choose from {sorted(writers)}")
     writers[fmt](output)
+
+
+if __name__ == "__main__":
+    app()
