@@ -15,8 +15,8 @@ jobs:
           python-version: "3.12"
       # Pin lint tooling so CI results do not drift with new releases.
       - run: pip install "ruff==0.14.*" "mypy==1.18.*" pydantic pandas rich
-      - run: ruff check src tests
-      - run: ruff format --check src tests
+      - run: ruff check src tests scripts
+      - run: ruff format --check src tests scripts
       # Strict mypy on the stable core only (algorithms/ adapters are gradual).
       - run: mypy src/nesydep/core src/nesydep/io
 

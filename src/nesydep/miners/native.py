@@ -108,7 +108,7 @@ def _guard_search_space(subtables: list[SubTable], max_columns: int, max_lhs: in
             )
 
 
-def _mine_safely(call: "_NativeCall", subtables: list[SubTable], n_jobs: int) -> list:
+def _mine_safely(call: _NativeCall, subtables: list[SubTable], n_jobs: int) -> list:
     try:
         return _run_parallel(call, subtables, n_jobs)
     except MemoryError as e:

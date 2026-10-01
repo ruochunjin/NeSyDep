@@ -8,8 +8,8 @@ _core = pytest.importorskip("nesydep._core")
 pytestmark = pytest.mark.requires_cpp
 
 from nesydep.core.config import FDMinerConfig  # noqa: E402
-from nesydep.miners.native import SearchSpaceExplosionError, TaneNative  # noqa: E402
 from nesydep.core.stages import SubTable  # noqa: E402
+from nesydep.miners.native import SearchSpaceExplosionError, TaneNative  # noqa: E402
 
 
 def test_guard_rejects_wide_full_table():
