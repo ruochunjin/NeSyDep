@@ -38,3 +38,9 @@ Thumbs.db
 *.pkl
 data/raw/
 results/
+
+# Notebook execution artifacts
+examples/cache_*/
+examples/*.json
+examples/*.txt
+!examples/requirements.txt

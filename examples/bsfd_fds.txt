@@ -1,6 +1,0 @@
-[Attribute10, Attribute11, Attribute12, Attribute17] -> Attribute20
-[Attribute10, Attribute11, Attribute12, Attribute9] -> Attribute20
-[Attribute10, Attribute11, Attribute7, Attribute9] -> Attribute20
-[Attribute10, Attribute11, Attribute12, Attribute19, Attribute7] -> Attribute20
-[Attribute11, Attribute12, Attribute14, Attribute17, Attribute18, Attribute19, Attribute4, Attribute7, Attribute9] -> Attribute15
-[Attribute10, Attribute12, Attribute6, Attribute7] -> Attribute20
