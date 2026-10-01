@@ -3,10 +3,53 @@ message: "If you use NeSyDep, please cite the papers below."
 title: "NeSyDep: fast neural-symbolic discovery of data dependencies"
 type: software
 license: MIT
+url: "https://github.com/ruochunjin/NeSyDep"
 preferred-citation:
-  type: article
+  type: inproceedings
   title: "Fast Discovery of Functional Dependencies via Bayesian Network Learning"
-  venue: "ICDE 2026"
+  authors:
+    - family-names: Yang
+      given-names: Siyi
+    - family-names: Chen
+      given-names: Shenglin
+    - family-names: Wang
+      given-names: Xi
+    - family-names: Tang
+      given-names: Yuhua
+    - family-names: Jin
+      given-names: Ruochun
+  booktitle: "2026 IEEE 42nd International Conference on Data Engineering (ICDE)"
+  pages: "44--57"
+  year: 2026
+  organization: IEEE
 references:
-  - type: article
+  - type: inproceedings
     title: "Fast Discovery of Conditional Functional Dependencies via Transformer-Guided Relation Partitioning"
+    authors:
+      - family-names: Jin
+        given-names: Ruochun
+      - family-names: Chen
+        given-names: Shenglin
+      - family-names: Wang
+        given-names: Xi
+      - family-names: Yang
+        given-names: Siyi
+      - family-names: Wang
+        given-names: Ting
+    booktitle: "Proceedings of the VLDB Endowment (VLDB 2027)"
+    year: 2027
+  - type: inproceedings
+    title: "Boosting meaningful dependency mining with clustering and covariance analysis"
+    authors:
+      - family-names: Wang
+        given-names: Xi
+      - family-names: Jin
+        given-names: Ruochun
+      - family-names: Huang
+        given-names: Wanrong
+      - family-names: Tang
+        given-names: Yuhua
+    booktitle: "2024 IEEE 40th International Conference on Data Engineering (ICDE)"
+    pages: "639--652"
+    year: 2024
+    organization: IEEE
