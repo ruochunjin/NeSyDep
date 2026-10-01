@@ -28,14 +28,14 @@ _SCORE_ALIASES = {
 }
 
 
-def _learn_markov_blanket(args: tuple[pd.DataFrame, str, str, list, int]) -> list[str]:
+def _learn_markov_blanket(args: tuple) -> list[str]:
     """One BN structure-learning job: Markov blanket of ``node``.
 
     Supports both pgmpy API generations: the causal-discovery sklearn-style
     API (>= 1.0: ``HillClimbSearch(...).fit(X)`` + ``causal_graph_``) and the
     legacy estimators API (``HillClimbSearch(data).estimate(...)``).
     """
-    data, node, score, black_list, max_iter = args
+    data, node, score, black_list, max_iter, max_parents = args
     last_err: Exception | None = None
     for candidate in _SCORE_ALIASES.get(score, (score,)):
         try:
@@ -48,7 +48,7 @@ def _learn_markov_blanket(args: tuple[pd.DataFrame, str, str, list, int]) -> lis
 
                 est = HillClimbSearch(
                     scoring_method=candidate,
-                    max_indegree=None,
+                    max_indegree=max_parents,
                     max_iter=max_iter,
                     expert_knowledge=ExpertKnowledge(forbidden_edges=black_list),
                     return_type="dag",
@@ -63,7 +63,7 @@ def _learn_markov_blanket(args: tuple[pd.DataFrame, str, str, list, int]) -> lis
                 est = HillClimbSearch(data=data)
                 model = est.estimate(
                     scoring_method=candidate,
-                    max_indegree=None,
+                    max_indegree=max_parents,
                     max_iter=max_iter,
                     black_list=black_list,
                     show_progress=False,
@@ -104,7 +104,7 @@ class BNCorrelation:
             black_list = [
                 (x, y) for x in nodes for y in nodes if x != y and x != target and y != target
             ]
-            blanket = _learn_markov_blanket((data, target, cfg.score, black_list, int(1e4)))
+            blanket = _learn_markov_blanket((data, target, cfg.score, black_list, int(1e4), cfg.max_parents))
             antecedents = tuple(a for a in blanket if a != target)
             if antecedents:
                 sets.append(CorrelatedSet(antecedents=antecedents, target=target))

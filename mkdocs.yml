@@ -10,6 +10,8 @@ nav:
   - Quickstart: quickstart.md
   - Concepts: pipeline.md
   - Plugins: plugins.md
+  - Benchmarks: benchmarks.md
+  - Publishing: publishing.md
   - API reference: api.md
 plugins:
   - search

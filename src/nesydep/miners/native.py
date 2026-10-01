@@ -67,6 +67,58 @@ def _n_jobs(config: Any) -> int:
     return int(getattr(config, "n_jobs", 1))
 
 
+class SearchSpaceExplosionError(RuntimeError):
+    """Raised instead of an opaque OOM when level-wise mining would explode."""
+
+
+def _estimate_candidates(n_cols: int, max_lhs: int) -> int:
+    """Worst-case level-wise candidate sets: sum of C(n, k) over levels.
+
+    Level k holds k-attribute sets plus their candidate RHS assignments;
+    with max_lhs the lattice is capped at level max_lhs + 1.
+    """
+    from math import comb
+
+    top = n_cols if max_lhs <= 0 else min(n_cols, max_lhs + 1)
+    return sum(comb(n_cols, k) for k in range(1, top + 1))
+
+
+def _guard_search_space(subtables: list[SubTable], max_columns: int, max_lhs: int = 0,
+                        budget: int = 10_000_000) -> None:
+    """Refuse level-wise mining before it OOMs.
+
+    The TANE/DFD kernels enumerate the attribute lattice level by level; with
+    unbounded LHS the space is 2^n and exhausts memory beyond ~20 columns.
+    A finite max_lhs caps the lattice at level max_lhs+1, which the estimate
+    accounts for. Wide unbounded tables are exactly what the partitioned
+    pipelines (bsfd/scfdm) exist for.
+    """
+    if max_columns <= 0:
+        return
+    for st in subtables:
+        n = len(st.frame.columns)
+        estimated = _estimate_candidates(n, max_lhs)
+        if n > max_columns and estimated > budget:
+            raise SearchSpaceExplosionError(
+                f"sub-table {st.name!r} has {n} columns (est. {estimated:,} "
+                f"lattice candidates, budget {budget:,}). Level-wise exact "
+                "mining would exhaust memory. Use a partitioned pipeline "
+                "(algo='bsfd' / 'scfdm'), set max_lhs to bound the lattice, or "
+                "raise max_columns_guard if you know what you are doing."
+            )
+
+
+def _mine_safely(call: "_NativeCall", subtables: list[SubTable], n_jobs: int) -> list:
+    try:
+        return _run_parallel(call, subtables, n_jobs)
+    except MemoryError as e:
+        raise SearchSpaceExplosionError(
+            "the native miner ran out of memory. The search space is too large "
+            "for this input: reduce columns (partitioned pipeline), raise "
+            "support/confidence thresholds, or lower max_lhs."
+        ) from e
+
+
 class _NativeFDMinerBase:
     """FD kernels return ``[(lhs_columns, rhs_column), ...]``."""
 
@@ -74,6 +126,7 @@ class _NativeFDMinerBase:
 
     def mine(self, subtables: list[SubTable], config: FDMinerConfig | None = None) -> list[FD]:
         cfg = config or FDMinerConfig()
+        _guard_search_space(subtables, cfg.max_columns_guard, cfg.max_lhs)
         call = _NativeCall(
             self.func_name,
             {
@@ -82,7 +135,7 @@ class _NativeFDMinerBase:
                 "max_lhs": cfg.max_lhs,
             },
         )
-        raw = _run_parallel(call, subtables, _n_jobs(cfg))
+        raw = _mine_safely(call, subtables, _n_jobs(cfg))
         return [FD(lhs=tuple(lhs), rhs=rhs) for lhs, rhs in raw]
 
 
@@ -115,6 +168,7 @@ class SCFDMNative:
         self, subtables: list[SubTable], config: CFDMinerConfig | None = None
     ) -> list[Dependency]:
         cfg = config or CFDMinerConfig()
+        _guard_search_space(subtables, cfg.max_columns_guard, cfg.max_lhs)
         call = _NativeCall(
             "cfd_mine",
             {
@@ -125,7 +179,7 @@ class SCFDMNative:
                 "constant_only": cfg.constant_only,
             },
         )
-        raw = _run_parallel(call, subtables, _n_jobs(cfg))
+        raw = _mine_safely(call, subtables, _n_jobs(cfg))
         return [
             CFD(
                 lhs=tuple(lhs),

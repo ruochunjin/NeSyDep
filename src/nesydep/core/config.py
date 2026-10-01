@@ -121,6 +121,9 @@ class FDMinerConfig(StageConfig):
     support: int = 1  # absolute minimum support (rows)
     confidence: float = Field(default=1.0, gt=0, le=1.0)
     max_lhs: int = Field(default=0, ge=0)  # 0 -> unlimited
+    # Refuse level-wise mining on sub-tables wider than this (0 = off).
+    # The lattice is exponential in columns; ~20+ columns OOM any machine.
+    max_columns_guard: int = 20
 
 
 class CFDMinerConfig(StageConfig):
@@ -132,6 +135,7 @@ class CFDMinerConfig(StageConfig):
     max_lhs: int = Field(default=3, ge=1)
     strategy: str = "FD-First-DFS-dfs"  # fastest in the paper's experiments
     constant_only: bool = False  # True -> SCFDM_part behaviour
+    max_columns_guard: int = 0  # CFD mining is already bounded by max_lhs
 
 
 MinerConfig = FDMinerConfig | CFDMinerConfig

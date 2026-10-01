@@ -1,0 +1,26 @@
+name: integration
+
+# Full extras + slow tests on the largest frozen samples. Not on every PR:
+# weekly schedule + manual dispatch + before releases.
+on:
+  schedule:
+    - cron: "23 3 * * 1"  # Mondays 03:23 UTC
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+jobs:
+  integration:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev,bn,lsh]"
+      - name: Slow integration tests
+        run: python -m pytest tests/integration -o addopts="" -v
