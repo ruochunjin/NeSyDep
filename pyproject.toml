@@ -28,6 +28,7 @@ dependencies = [
     "numpy >=1.24",
     "pydantic >=2.5",
     "typer >=0.9",
+    "rich >=13",       # progress spinners; degrades to plain output without a TTY
 ]
 
 [project.optional-dependencies]

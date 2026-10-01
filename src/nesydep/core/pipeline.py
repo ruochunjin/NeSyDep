@@ -7,6 +7,7 @@ or pass pre-built instances.
 
 from __future__ import annotations
 
+import sys
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -20,6 +21,34 @@ from nesydep.core.stages import (
     NoOpSampler,
     SingleTablePartitioner,
 )
+
+
+class _stage:
+    """Per-stage progress: rich spinner on a TTY, plain lines otherwise."""
+
+    def __init__(self, enabled: bool, message: str) -> None:
+        self.enabled = enabled
+        self.message = message
+        self._status: Any = None
+
+    def __enter__(self) -> "_stage":
+        if not self.enabled:
+            return self
+        if sys.stderr.isatty():
+            try:
+                from rich.console import Console
+
+                self._status = Console(stderr=True).status(self.message)
+                self._status.__enter__()
+                return self
+            except ImportError:
+                pass
+        print(f"{self.message} ...", file=sys.stderr)
+        return self
+
+    def __exit__(self, *exc: Any) -> None:
+        if self._status is not None:
+            self._status.__exit__(*exc)
 
 
 def _resolve(registry: Any, value: Any, identity: Any) -> Any:
@@ -40,6 +69,8 @@ class Pipeline:
         cache_dir: when set, intermediate artifacts (sample CSV, correlated
             sets, sub-table CSVs) are written there for reproducibility.
         configs: per-stage config objects keyed by stage name.
+        progress: show per-stage progress (rich when installed and attached
+            to a TTY, plain lines otherwise). False silences all output.
     """
 
     sampler: Any = None
@@ -50,6 +81,7 @@ class Pipeline:
     cache_dir: str | Path | None = None
     configs: dict[str, Any] = field(default_factory=dict)
     global_config: Any = None
+    progress: bool = True
 
     def run(self, data: DatasetLike | Any) -> MiningResult:
         dataset = as_dataset(data)
@@ -64,24 +96,28 @@ class Pipeline:
             raise ValueError("Pipeline requires a miner (registry name or instance).")
 
         t0 = time.perf_counter()
-        sample = sampler.sample(frame, self.configs.get("sampler"))
+        with _stage(self.progress, f"[1/4] sampling ({len(frame)} rows)"):
+            sample = sampler.sample(frame, self.configs.get("sampler"))
         stats["sample_seconds"] = time.perf_counter() - t0
         stats["sample_rows"] = len(sample)
 
         t0 = time.perf_counter()
-        graph = correlator.extract(sample, self.configs.get("correlation"))
+        with _stage(self.progress, "[2/4] correlation extraction"):
+            graph = correlator.extract(sample, self.configs.get("correlation"))
         stats["correlation_seconds"] = time.perf_counter() - t0
         stats["correlated_sets"] = len(graph.sets)
 
         t0 = time.perf_counter()
-        subtables = partitioner.partition(sample, graph, self.configs.get("partitioner"))
+        with _stage(self.progress, "[3/4] partitioning"):
+            subtables = partitioner.partition(sample, graph, self.configs.get("partitioner"))
         stats["partition_seconds"] = time.perf_counter() - t0
         stats["n_subtables"] = len(subtables)
 
         self._write_cache(sample, graph, subtables)
 
         t0 = time.perf_counter()
-        deps = miner.mine(subtables, self.configs.get("miner"))
+        with _stage(self.progress, f"[4/4] mining ({len(subtables)} sub-tables)"):
+            deps = miner.mine(subtables, self.configs.get("miner"))
         stats["mine_seconds"] = time.perf_counter() - t0
 
         return MiningResult(
