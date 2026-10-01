@@ -13,6 +13,12 @@ option(NESYDEP_BUILD_PYTHON "Build the pybind11 _core extension" ON)
 # shared pybind11 module.
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+# Static CRT on MSVC: the shipped wheel must not require users to install the
+# Visual C++ redistributable.
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
+
 if(NESYDEP_ENABLE_OPENMP)
     find_package(OpenMP QUIET)
     if(NOT OpenMP_CXX_FOUND)

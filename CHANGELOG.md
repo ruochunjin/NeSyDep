@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Windows wheels: static-link the MSVC runtime so no VC++ redistributable
+  install is needed on clean machines.
+
 ## v1.0.0 (2026-10-01)
 
 First stable release.
