@@ -41,11 +41,11 @@ class MyAlgo(MiningAlgorithm):
     def _pipeline(self): ...
 ```
 
-## A new dependency kind (e.g. GCFD, OD)
+## A new dependency kind (e.g. OD, DC, UC)
 
 1. Subclass `nesydep.core.dependency.Dependency`, set a unique `kind`,
    implement `to_dict`/`_from_dict`, and decorate with `@register_kind`.
 2. Implement the stages you need (often just a `Miner`).
 3. Combine into a `MiningAlgorithm` preset.
 
-The GCFD prototype in the CFD repo is the worked example for this path.
+The FDX integration (forthcoming) will be the worked example for this path.

@@ -59,7 +59,8 @@ nesydep algorithms            # list registered algorithms and parameters
   evaluation, CLI.
 - **v0.2**: Transformer AttrFinder, all 10 SCFDM strategies, prebuilt wheels.
 - **v1.0**: PyPI release, full docs, plugin tutorial.
-- Later: GCFD and other dependency types (OD, DC, UC) as plugins.
+- Later: more fast mining algorithms over relational data and more dependency
+  types (OD, DC, UC, ...) as plugins.
 
 Out of scope for v1: direct database connections, distributed (MPI) wheels.
 
