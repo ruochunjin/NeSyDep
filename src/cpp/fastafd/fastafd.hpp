@@ -242,7 +242,7 @@ public:
         int intersection_count(const std::vector<uint64_t>& lhs_bits, int rhs) const {
             int count = 0;
             for (int word = 0; word < bit_words; ++word) {
-                count += static_cast<int>(__builtin_popcountll(lhs_bits[word] & col_bits[rhs][word]));
+                count += static_cast<int>(popcount64(lhs_bits[word] & col_bits[rhs][word]));
             }
             return count;
         }
