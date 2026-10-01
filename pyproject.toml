@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "nesydep"
-version = "0.1.3"
+version = "1.0.0"
 description = "NeSyDep: fast neural-symbolic discovery of data dependencies (FDs, CFDs, and more)"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -32,11 +32,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-bn = ["pgmpy >=0.1.34", "networkx >=3.0", "joblib >=1.3"]
+bn = ["pgmpy >=1.0.04", "networkx >=3.0", "joblib >=1.3"]
 transformer = ["torch >=2.0", "sentence-transformers >=2.2"]
 lsh = ["datasketch >=1.6"]
 all = [
-    "pgmpy >=0.1.34", "networkx >=3.0", "joblib >=1.3",
+    "pgmpy >=1.0.04", "networkx >=3.0", "joblib >=1.3",
     "torch >=2.0", "sentence-transformers >=2.2",
     "datasketch >=1.6",
 ]

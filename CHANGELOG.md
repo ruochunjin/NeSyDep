@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.0.0 (2026-10-01)
+
+First stable release.
+
+- Memory-safety guards: lattice-size estimation (max_lhs-aware) raises
+  actionable `SearchSpaceExplosionError` instead of OOM on wide tables;
+  native `bad_alloc` converted likewise. Validated by integration tests on
+  37/42-column samples (the guard intercepts full-table TANE in 0.03s; it
+  previously OOMed after a minute).
+- BN correlation honours `max_parents` as max-indegree.
+- Pipeline per-stage progress (rich spinner on TTY).
+- Three executed example notebooks; benchmarks in docs/benchmarks.md.
+- Slow integration tests + weekly CI workflow with all extras.
+- Publishing: PyPI trusted publishing wired (tag -> wheels -> golden
+  regression -> PyPI).
+
 ## v0.1.3 (2026-10-01)
 
 - Removed pytest `pythonpath=["src"]` — it shadowed installed wheels with the
