@@ -1,4 +1,5 @@
 """Memory-safety guard tests for the native miners."""
+
 from pathlib import Path
 
 import pandas as pd
@@ -21,9 +22,7 @@ def test_guard_rejects_wide_full_table():
 def test_guard_disabled_with_zero():
     # 12 rows, 6 cols: toy mining must work with the guard off.
     frame = pd.read_csv(Path(__file__).parents[1] / "data" / "toy_addresses.csv")
-    out = TaneNative().mine(
-        [SubTable(frame=frame)], FDMinerConfig(max_columns_guard=0)
-    )
+    out = TaneNative().mine([SubTable(frame=frame)], FDMinerConfig(max_columns_guard=0))
     assert len(out) > 0
 
 

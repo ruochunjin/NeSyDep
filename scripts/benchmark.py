@@ -2,6 +2,7 @@
 
 Run:  python scripts/benchmark.py
 """
+
 from __future__ import annotations
 
 import sys
@@ -28,15 +29,21 @@ def bench(name: str, algo: str, data: pd.DataFrame, **params) -> dict:
         _, peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
         return {
-            "dataset": name, "algo": algo, "n": len(result),
-            "seconds": round(elapsed, 2), "peak_mb": round(peak / 1e6, 1),
+            "dataset": name,
+            "algo": algo,
+            "n": len(result),
+            "seconds": round(elapsed, 2),
+            "peak_mb": round(peak / 1e6, 1),
             "note": "",
         }
     except Exception as e:
         tracemalloc.stop()
         return {
-            "dataset": name, "algo": algo, "n": "-",
-            "seconds": round(time.perf_counter() - t0, 2), "peak_mb": "-",
+            "dataset": name,
+            "algo": algo,
+            "n": "-",
+            "seconds": round(time.perf_counter() - t0, 2),
+            "peak_mb": "-",
             "note": f"{type(e).__name__} (guarded)",
         }
 

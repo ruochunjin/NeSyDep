@@ -104,7 +104,9 @@ class BNCorrelation:
             black_list = [
                 (x, y) for x in nodes for y in nodes if x != y and x != target and y != target
             ]
-            blanket = _learn_markov_blanket((data, target, cfg.score, black_list, int(1e4), cfg.max_parents))
+            blanket = _learn_markov_blanket(
+                (data, target, cfg.score, black_list, int(1e4), cfg.max_parents)
+            )
             antecedents = tuple(a for a in blanket if a != target)
             if antecedents:
                 sets.append(CorrelatedSet(antecedents=antecedents, target=target))

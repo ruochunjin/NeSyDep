@@ -5,6 +5,7 @@ the weekly/manual integration workflow. These exercise the memory-sensitive
 paths end to end: wide tables (37–42 columns) must go through the partitioned
 pipelines and finish with bounded memory.
 """
+
 from pathlib import Path
 
 import pandas as pd
@@ -42,9 +43,7 @@ def test_scfdm_wide_table(census):
     assert len(result.cfds) > 0
     # CFDs mined on a sample are approximate on the full table by design;
     # the paper's guarantee is a high hold rate, not 100%.
-    checks = verify(
-        census.astype("string"), result.cfds, min_support=10, min_confidence=0.9
-    )
+    checks = verify(census.astype("string"), result.cfds, min_support=10, min_confidence=0.9)
     hold_rate = sum(v.holds for v in checks) / len(checks)
     assert hold_rate >= 0.9, f"hold rate {hold_rate:.2f} below 0.9"
 
@@ -53,8 +52,11 @@ def test_scfdm_with_repsampler(census):
     """RepSampler path (MinHash-LSH) on a wide table."""
     pytest.importorskip("datasketch")
     result = nd.get_algorithm("scfdm")(
-        sampler="representative", correlation="lightweight",
-        support=10, confidence=0.9, max_lhs=2,
+        sampler="representative",
+        correlation="lightweight",
+        support=10,
+        confidence=0.9,
+        max_lhs=2,
     ).discover(census)
     assert len(result.cfds) > 0
     assert result.stats["sample_rows"] <= len(census)

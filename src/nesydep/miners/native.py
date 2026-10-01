@@ -83,8 +83,9 @@ def _estimate_candidates(n_cols: int, max_lhs: int) -> int:
     return sum(comb(n_cols, k) for k in range(1, top + 1))
 
 
-def _guard_search_space(subtables: list[SubTable], max_columns: int, max_lhs: int = 0,
-                        budget: int = 10_000_000) -> None:
+def _guard_search_space(
+    subtables: list[SubTable], max_columns: int, max_lhs: int = 0, budget: int = 10_000_000
+) -> None:
     """Refuse level-wise mining before it OOMs.
 
     The TANE/DFD kernels enumerate the attribute lattice level by level; with
