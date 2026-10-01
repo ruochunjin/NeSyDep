@@ -31,7 +31,7 @@ class _stage:
         self.message = message
         self._status: Any = None
 
-    def __enter__(self) -> "_stage":
+    def __enter__(self) -> _stage:
         if not self.enabled:
             return self
         if sys.stderr.isatty():
