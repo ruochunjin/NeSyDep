@@ -1,0 +1,21 @@
+HospitalName,Address,City,State,Zip,County,PhoneNumber,HospitalType,EmergencyService
+Springfield General,100 Main St,Springfield,IL,62701,Sangamon,2175550101,Acute Care,Yes
+Springfield General Annex,102 Main St,Springfield,IL,62701,Sangamon,2175550102,Acute Care,Yes
+Riverside Medical,500 River Rd,Shelbyville,IL,62565,Shelby,2175550201,Critical Access,Yes
+Riverside Clinic,502 River Rd,Shelbyville,IL,62565,Shelby,2175550202,Critical Access,No
+Lakeside Hospital,10 Lake Ave,Chicago,IL,60601,Cook,3125550301,Acute Care,Yes
+Lakeside Children's,12 Lake Ave,Chicago,IL,60601,Cook,3125550302,Childrens,Yes
+Lakeside Outpatient,14 Lake Ave,Chicago,IL,60601,Cook,3125550303,Acute Care,No
+Mountain View Hospital,77 Peak Blvd,Denver,CO,80201,Denver,3035550401,Acute Care,Yes
+Mountain View Rehab,79 Peak Blvd,Denver,CO,80201,Denver,3035550402,Rehabilitation,No
+Harbor Medical Center,200 Pier St,Baltimore,MD,21201,Baltimore City,4105550501,Acute Care,Yes
+Harbor Urgent Care,202 Pier St,Baltimore,MD,21201,Baltimore City,4105550502,Acute Care,Yes
+Valley Health,30 Valley Way,Phoenix,AZ,85001,Maricopa,6025550601,Acute Care,Yes
+Valley Surgical,32 Valley Way,Phoenix,AZ,85001,Maricopa,6025550602,Surgical,No
+Desert Rose Hospital,40 Cactus Ct,Phoenix,AZ,85003,Maricopa,6025550603,Acute Care,Yes
+Capitol City Medical,900 State St,Austin,TX,73301,Travis,5125550701,Acute Care,Yes
+Capitol City Clinic,902 State St,Austin,TX,73301,Travis,5125550702,Acute Care,No
+Bay Area General,1 Bay St,San Francisco,CA,94102,San Francisco,4155550801,Acute Care,Yes
+Bay Area Psychiatric,3 Bay St,San Francisco,CA,94102,San Francisco,4155550802,Psychiatric,No
+Twin Ports Hospital,55 Harbor Dr,Duluth,MN,55801,St. Louis,2185550901,Acute Care,Yes
+North Shore Clinic,57 Harbor Dr,Duluth,MN,55801,St. Louis,2185550902,Critical Access,Yes

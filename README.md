@@ -29,14 +29,18 @@ pip install "nesydep[all]"     # everything
 import pandas as pd
 import nesydep as nd
 
-df = pd.read_csv("hospital.csv")
+# A small hospital table ships with the repo — load it straight from GitHub.
+url = "https://raw.githubusercontent.com/ruochunjin/NeSyDep/main/examples/data/hospital_sample.csv"
+df = pd.read_csv(url)
 
-# One-liner
-fds = nd.discover(df, algo="bsfd", support=100, confidence=0.95)
+# One-liner FD discovery
+fds = nd.discover(df, algo="bsfd", support=2, confidence=0.95)
+for fd in fds.fds:
+    print(fd)   # e.g. [Zip] -> City, [Zip] -> State, [Address] -> PhoneNumber
 
-# Full control
+# CFD discovery with full control
 miner = nd.SCFDM(correlation="pearson", strategy="FD-First-DFS-dfs",
-                 support=0.001, confidence=0.9)
+                 support=2, confidence=0.9, max_lhs=2)
 result = miner.discover(df)
 result.to_csv("cfds.csv")
 ```
@@ -44,7 +48,8 @@ result.to_csv("cfds.csv")
 CLI:
 
 ```bash
-nesydep discover data.csv --algo bsfd -o fds.csv
+curl -O https://raw.githubusercontent.com/ruochunjin/NeSyDep/main/examples/data/hospital_sample.csv
+nesydep discover hospital_sample.csv --algo bsfd --support 2 -o fds.txt
 nesydep algorithms            # list registered algorithms and parameters
 ```
 
@@ -64,7 +69,14 @@ If you use NeSyDep in academic work, please cite:
 
 **CFD discovery (SCFDM):**
 
-> Ruochun Jin, Shenglin Chen, Xi Wang, Siyi Yang, Ting Wang. Fast Discovery of Conditional Functional Dependencies via Transformer-Guided Relation Partitioning. VLDB 2027.
+```bibtex
+@article{jin2027fast,
+  title={Fast Discovery of Conditional Functional Dependencies via Transformer-Guided Relation Partitioning},
+  author={Jin, Ruochun and Chen, Shenglin and Wang, Xi and Yang, Siyi and Wang, Ting},
+  journal={Proceedings of the VLDB Endowment},
+  year={2027}
+}
+```
 
 **FD discovery (BSFD):**
 
@@ -79,7 +91,7 @@ If you use NeSyDep in academic work, please cite:
 }
 ```
 
-**Related work:**
+**Also from our group** (its algorithms will be integrated into NeSyDep in a future release):
 
 ```bibtex
 @inproceedings{wang2024boosting,
