@@ -1,0 +1,38 @@
+[A, D, L] -> U
+[A, D, M] -> U
+[A, D, O] -> U
+[A, D, W] -> U
+[A, F, M] -> U
+[A, L, O] -> U
+[A, L, T] -> U
+[A, L, V] -> U
+[A, O, Q] -> U
+[A, O, T] -> U
+[A, O, V] -> U
+[A, O, W] -> U
+[A, Q, V] -> U
+[A, T, W] -> U
+[D, L, O] -> U
+[D, L, T] -> U
+[D, L, V] -> U
+[D, O, Q] -> U
+[D, O, T] -> U
+[D, O, V] -> U
+[D, O, W] -> U
+[D, V, W] -> U
+[F, L, O] -> U
+[F, L, W] -> U
+[F, O, Q] -> U
+[F, O, T, V] -> U
+[F, O, W] -> U
+[F, Q, W] -> U
+[L, O, T] -> U
+[L, O, V] -> U
+[L, O, W] -> U
+[M, O] -> U
+[N, O] -> U
+[O, Q, T] -> U
+[O, Q, V] -> U
+[O, T, W] -> U
+[O, V, W] -> U
+[O, X] -> U

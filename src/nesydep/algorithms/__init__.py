@@ -8,6 +8,7 @@ from typing import Any
 from nesydep.core.config import (
     BSFDConfig,
     CFDMinerConfig,
+    FastAFDConfig,
     FDMinerConfig,
     LightweightCorrelationConfig,
     RepresentativeSampleConfig,
@@ -184,3 +185,4 @@ _baseline("tane", "tane", FDMinerConfig(name="tane"))
 _baseline("dfd", "dfd", FDMinerConfig(name="dfd"))
 _baseline("ctane", "ctane", CFDMinerConfig())
 _baseline("pyref-fd", "pyref-fd", FDMinerConfig(name="pfminer"))
+_baseline("fastafd", "fastafd", FastAFDConfig())

@@ -126,6 +126,20 @@ class FDMinerConfig(StageConfig):
     max_columns_guard: int = 20
 
 
+class FastAFDConfig(StageConfig):
+    """FastAFD (FDM, ICDE 2024): approximate FD mining with statistical
+    guarantees. NOTE: unlike FDMinerConfig, ``support`` and ``error`` are
+    pair-based ratios over the sampled tuple-comparison matrix.
+    """
+
+    name: Literal["fastafd"] = "fastafd"
+    support: float = Field(default=0.2, gt=0, le=1.0)  # pair-support ratio
+    error: float = Field(default=0.03, ge=0, lt=1.0)  # max pair-error ratio
+    seed: int = 42  # reservoir sampling seed (results are deterministic per seed)
+    max_lhs: int = Field(default=0, ge=0)  # 0 -> unlimited
+    max_columns_guard: int = 40  # hard kernel limit (64-bit column bitsets table)
+
+
 class CFDMinerConfig(StageConfig):
     """Config for the C++ CFD kernel (scfdm); strategy names match the paper."""
 
@@ -138,7 +152,7 @@ class CFDMinerConfig(StageConfig):
     max_columns_guard: int = 0  # CFD mining is already bounded by max_lhs
 
 
-MinerConfig = FDMinerConfig | CFDMinerConfig
+MinerConfig = FDMinerConfig | CFDMinerConfig | FastAFDConfig
 
 
 # -- algorithm presets --------------------------------------------------------------

@@ -23,6 +23,7 @@
 #include "../common/reader.hpp"
 #include "../pfminer/tane.hpp"
 #include "../pfminer/dfd.hpp"
+#include "../fastafd/fastafd.hpp"
 
 namespace py = pybind11;
 
@@ -90,6 +91,30 @@ FDPairs run_dfd(const std::vector<std::string>& columns,
     return out;
 }
 
+FDPairs run_fastafd(const std::vector<std::string>& columns,
+                    const std::vector<std::vector<std::string>>& rows,
+                    double support, double error, uint64_t seed, int max_lhs) {
+    fastafd::ReaderAFD r(seed);
+    r.read_from_rows(columns, rows);
+
+    fastafd::FastAFD f;
+    f.support_threshold = support;
+    f.error_threshold = error;
+    f.set_data(r);
+    f.extraction();
+
+    FDPairs out;
+    out.reserve(f.getFD().size());
+    for (auto& fd : f.getFD()) {
+        // 1-based column indices; last entry is the RHS.
+        if (max_lhs > 0 && static_cast<int>(fd.size()) - 1 > max_lhs) continue;
+        std::vector<std::string> lhs;
+        for (size_t j = 0; j + 1 < fd.size(); ++j) lhs.push_back(columns[fd[j] - 1]);
+        out.emplace_back(std::move(lhs), columns[fd.back() - 1]);
+    }
+    return out;
+}
+
 }  // namespace
 
 void bind_fd(py::module_& m) {
@@ -110,4 +135,10 @@ void bind_fd(py::module_& m) {
           py::arg("confidence"), py::arg("max_lhs"),
           py::call_guard<py::gil_scoped_release>(),
           "PFMiner per-sub-table FD kernel (TANE inside the parallel framework).");
+    m.def("fastafd_mine", &run_fastafd,
+          py::arg("columns"), py::arg("rows"), py::arg("support"),
+          py::arg("error"), py::arg("seed"), py::arg("max_lhs"),
+          py::call_guard<py::gil_scoped_release>(),
+          "Mine approximate FDs (FDm) with FastAFD: support/error are "
+          "pair-based ratios; seed controls the reservoir sampling.");
 }

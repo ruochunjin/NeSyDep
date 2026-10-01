@@ -14,7 +14,7 @@ from __future__ import annotations
 from concurrent.futures import ProcessPoolExecutor
 from typing import Any
 
-from nesydep.core.config import CFDMinerConfig, FDMinerConfig
+from nesydep.core.config import CFDMinerConfig, FastAFDConfig, FDMinerConfig
 from nesydep.core.dependency import CFD, FD, Dependency
 from nesydep.core.registry import MINERS
 from nesydep.core.stages import SubTable
@@ -159,6 +159,32 @@ class DFDNative(_NativeFDMinerBase):
     """Classic DFD baseline (native)."""
 
     func_name = "dfd_mine"
+
+
+@MINERS.decorator("fastafd")
+class FastAFDNative:
+    """FastAFD (FDM, ICDE 2024): approximate FDs via clustering + covariance.
+
+    Faster than exact miners on wide tables, with statistical recall
+    guarantees; results depend on the sampling seed and are deterministic
+    per seed.
+    """
+
+    def mine(self, subtables: list[SubTable], config: FastAFDConfig | None = None) -> list[FD]:
+        cfg = config or FastAFDConfig()
+        _guard_search_space(subtables, cfg.max_columns_guard, cfg.max_lhs)
+        call = _NativeCall(
+            "fastafd_mine",
+            {
+                "support": cfg.support,
+                "error": cfg.error,
+                "seed": cfg.seed,
+                "max_lhs": cfg.max_lhs,
+            },
+        )
+        raw = _mine_safely(call, subtables, _n_jobs(cfg))
+        # union over sub-tables, deduplicated
+        return sorted({FD(lhs=tuple(lhs), rhs=rhs) for lhs, rhs in raw}, key=str)
 
 
 @MINERS.decorator("scfdm")

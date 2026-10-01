@@ -81,6 +81,35 @@ def verify_fd(frame: pd.DataFrame, fd: FD) -> tuple[int, float]:
     return support, support / n
 
 
+def verify_fd_approx(frame: pd.DataFrame, fd: FD) -> tuple[float, float]:
+    """Pair-based (support, error) of an FD — the FDm semantics (ICDE 2024).
+
+    support = agreeing LHS-group pairs / total pairs,
+    error   = violating pairs (same LHS, different RHS) / total pairs.
+
+    This is the measure FastAFD optimises (on the sampled comparison matrix);
+    evaluating on the full table gives the true error rate.
+    """
+    n = len(frame)
+    if n < 2:
+        return 0.0, 0.0
+    f = frame.astype("string")
+    lhs_vals = f[list(fd.lhs)].agg(tuple, axis=1)
+    rhs_vals = f[fd.rhs]
+    groups: dict = {}
+    for lv, rv in zip(lhs_vals, rhs_vals, strict=True):
+        groups.setdefault(lv, []).append(rv)
+    tot = n * (n - 1)
+    support_pairs = 0
+    violation_pairs = 0
+    for g in groups.values():
+        m = len(g)
+        support_pairs += m * (m - 1)
+        counts = pd.Series(g).value_counts()
+        violation_pairs += m * (m - 1) - sum(c * (c - 1) for c in counts)
+    return support_pairs / tot, violation_pairs / tot
+
+
 def verify(
     frame: pd.DataFrame,
     dependencies: list[Dependency],

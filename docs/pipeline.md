@@ -12,7 +12,7 @@ Sampler ──► CorrelationExtractor ──► Partitioner ──► Miner ─
 | Sampler | row-level reduction | `random`, `stratified` (BSFD), `representative` (RepSampler, `[lsh]` extra) |
 | CorrelationExtractor | column-level reduction | `lightweight` (Pearson/PCA/Lasso), `bn` (SubLearner, `[bn]` extra), `transformer` (AttrFinder, `[transformer]` extra) |
 | Partitioner | vertical split into sub-tables | `vertical` |
-| Miner | dependency discovery | `pfminer`, `tane`, `dfd`, `scfdm`, `ctane` (native), `pyref-fd` (pure Python) |
+| Miner | dependency discovery | `pfminer`, `tane`, `dfd`, `scfdm`, `ctane`, `fastafd` (native), `pyref-fd` (pure Python) |
 | Evaluator | scoring vs ground truth | P/R/F1 (`nesydep.evaluate`) |
 
 Algorithm presets (`bsfd`, `scfdm`) are just named combinations of stages.

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- **FastAFD (FDM, ICDE 2024)** integrated: approximate FD mining via tuple-pair
+  comparison matrix + clustering-based search-space reduction + covariance-guided
+  traversal (`algo="fastafd"`; deterministic per `seed`). Adds
+  `verify_fd_approx` for pair-based error/support evaluation. Kernel port:
+  namespaced, runtime thresholds, seeded mt19937 reservoir, MSVC-safe popcount;
+  prototype dead code (unused `cluster()`) intentionally not ported.
 - Windows wheels: static-link the MSVC runtime so no VC++ redistributable
   install is needed on clean machines.
 

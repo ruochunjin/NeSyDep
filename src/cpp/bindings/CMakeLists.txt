@@ -7,7 +7,7 @@ pybind11_add_module(_core
     fd_bindings.cpp
     cfd_bindings.cpp
 )
-target_link_libraries(_core PRIVATE nesydep_fd nesydep_scfdm)
+target_link_libraries(_core PRIVATE nesydep_fd nesydep_scfdm nesydep_fastafd)
 
 if(MINGW)
     # Self-contained extension: users should not need the MinGW runtime on PATH.

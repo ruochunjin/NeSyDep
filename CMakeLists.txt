@@ -29,6 +29,7 @@ endif()
 add_subdirectory(src/cpp/common)
 add_subdirectory(src/cpp/pfminer)
 add_subdirectory(src/cpp/scfdm)
+add_subdirectory(src/cpp/fastafd)
 
 if(NESYDEP_BUILD_PYTHON)
     add_subdirectory(src/cpp/bindings)

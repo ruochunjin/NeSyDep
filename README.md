@@ -8,6 +8,8 @@ open-source tool for data scientists and data engineers:
 
 - **BSFD** — fast FD discovery guided by Bayesian-network structure learning (ICDE 2026)
 - **SCFDM** — fast CFD discovery via Transformer-guided relation partitioning (VLDB 2027)
+- **FastAFD** — approximate FD mining (FDm) boosted by clustering and covariance
+  analysis (ICDE 2024); fastest on wide tables, with statistical recall guarantees
 
 Mining kernels are C++ (exposed through pybind11); orchestration, sampling,
 correlation extraction and evaluation are pure Python.
