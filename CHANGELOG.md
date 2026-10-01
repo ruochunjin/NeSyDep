@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v1.1.0 (2026-10-01)
 
 - **FastAFD (FDM, ICDE 2024)** integrated: approximate FD mining via tuple-pair
   comparison matrix + clustering-based search-space reduction + covariance-guided
