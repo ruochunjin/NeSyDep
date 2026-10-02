@@ -98,7 +98,7 @@ If you use NeSyDep in academic work, please cite:
 }
 ```
 
-**Also from our group** (its algorithms will be integrated into NeSyDep in a future release):
+**FastAFD (also from our group; integrated since v1.1.0):**
 
 ```bibtex
 @inproceedings{wang2024boosting,
