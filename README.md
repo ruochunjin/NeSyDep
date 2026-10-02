@@ -1,5 +1,11 @@
 # NeSyDep
 
+[![PyPI](https://img.shields.io/pypi/v/nesydep)](https://pypi.org/project/nesydep/)
+[![CI](https://github.com/ruochunjin/NeSyDep/actions/workflows/ci.yml/badge.svg)](https://github.com/ruochunjin/NeSyDep/actions/workflows/ci.yml)
+[![wheels](https://github.com/ruochunjin/NeSyDep/actions/workflows/wheels.yml/badge.svg)](https://github.com/ruochunjin/NeSyDep/actions/workflows/wheels.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+
 **Ne**ural-**Sy**mbolic **Dep**endency discovery: fast mining of data dependencies
 (functional dependencies, conditional functional dependencies, and more to come).
 
@@ -18,13 +24,30 @@ open-source tool for data scientists and data engineers:
 Mining kernels are C++ (exposed through pybind11); orchestration, sampling,
 correlation extraction and evaluation are pure Python.
 
-> Status: early development. See the roadmap below.
+## Features
+
+- **One line to results**: `nesydep.discover(df, algo="bsfd")` — from a pandas
+  DataFrame, a CSV file, or a parquet file.
+- **Algorithms built in**: BSFD, SCFDM, FastAFD, plus baselines TANE, DFD,
+  CTane (all native C++), and a pure-Python textbook reference miner
+  (`pyref-fd`).
+- **Pluggable pipeline**: sampling → correlation extraction → partitioning →
+  mining → evaluation. Swap any stage by name, or register your own via
+  entry points (see [docs/plugins.md](docs/plugins.md)).
+- **Robust by design**: memory-safety guards stop combinatorial explosion on
+  wide tables with actionable guidance; optional heavy dependencies
+  (torch/pgmpy) degrade gracefully instead of failing.
+- **Evaluation built in**: precision/recall/F1, exact and approximate
+  (pair-based, FDm semantics) support/confidence verification.
+- **Prebuilt wheels** for Linux, macOS (arm64) and Windows (x64),
+  Python 3.10–3.13. Windows wheels need no VC++ redistributable.
 
 ## Install
 
 ```bash
 pip install nesydep            # core (FD/CFD mining + lightweight correlation)
 pip install "nesydep[bn]"      # + Bayesian-network correlation (BSFD default)
+pip install "nesydep[lsh]"     # + RepSampler (MinHash-LSH, SCFDM default)
 pip install "nesydep[transformer]"  # + Transformer AttrFinder (large, pulls torch)
 pip install "nesydep[all]"     # everything
 ```
@@ -42,7 +65,7 @@ df = pd.read_csv(url)
 # One-liner FD discovery
 fds = nd.discover(df, algo="bsfd", support=2, confidence=0.95)
 for fd in fds.fds:
-    print(fd)   # e.g. [Zip] -> City, [Zip] -> State, [Address] -> PhoneNumber
+    print(fd)   # e.g. [Zip] -> City, [Zip] -> State, [County] -> State
 
 # CFD discovery with full control
 miner = nd.SCFDM(correlation="pearson", strategy="FD-First-DFS-dfs",
@@ -59,16 +82,21 @@ nesydep discover hospital_sample.csv --algo bsfd --support 2 -o fds.txt
 nesydep algorithms            # list registered algorithms and parameters
 ```
 
+More examples: [examples/](examples/) — executed notebooks for FD quickstart,
+CFD with SCFDM, and custom pipelines/plugins.
+
 ## Roadmap
 
-- **v0.1 (MVP)**: BSFD, SCFDM (lightweight correlation), TANE/DFD/CTane baselines,
+- **v0.1** ✅ BSFD, SCFDM (lightweight correlation), TANE/DFD/CTane baselines,
   evaluation, CLI.
-- **v0.2**: Transformer AttrFinder, all 10 SCFDM strategies, prebuilt wheels.
-- **v1.0**: PyPI release, full docs, plugin tutorial.
-- Later: more fast mining algorithms over relational data and more dependency
-  types (OD, DC, UC, ...) as plugins.
+- **v0.2** ✅ Transformer AttrFinder, all 10 SCFDM strategies, prebuilt wheels.
+- **v1.0** ✅ PyPI release, memory-safety guards, benchmarks.
+- **v1.1** ✅ FastAFD (FDm, ICDE 2024) integrated; static-CRT Windows wheels.
+- **Later**: FDX (forthcoming from our group), more fast mining algorithms over
+  relational data, and more dependency types (OD, DC, UC, ...) as plugins.
 
-Out of scope for v1: direct database connections, distributed (MPI) wheels.
+Out of scope: GCFD (graph rules), direct database connections,
+distributed (MPI) wheels.
 
 ## Citing
 
