@@ -48,4 +48,4 @@ class MyAlgo(MiningAlgorithm):
 2. Implement the stages you need (often just a `Miner`).
 3. Combine into a `MiningAlgorithm` preset.
 
-The FDX integration (forthcoming) will be the worked example for this path.
+The next algorithm integrated from our group will be the worked example for this path.

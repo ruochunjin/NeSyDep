@@ -92,11 +92,10 @@ CFD with SCFDM, and custom pipelines/plugins.
 - **v0.2** ✅ Transformer AttrFinder, all 10 SCFDM strategies, prebuilt wheels.
 - **v1.0** ✅ PyPI release, memory-safety guards, benchmarks.
 - **v1.1** ✅ FastAFD (FDm, ICDE 2024) integrated; static-CRT Windows wheels.
-- **Later**: FDX (forthcoming from our group), more fast mining algorithms over
-  relational data, and more dependency types (OD, DC, UC, ...) as plugins.
+- **Later**: more fast mining algorithms and more dependency types as plugins —
+  over relational data (OD, DC, UC, ...) and possibly graph data (GCFD) too.
 
-Out of scope: GCFD (graph rules), direct database connections,
-distributed (MPI) wheels.
+Out of scope for now: direct database connections, distributed (MPI) wheels.
 
 ## Citing
 
